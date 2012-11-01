@@ -18,6 +18,8 @@ $query = "SELECT `ID`, `Longitude`, `Latitude` FROM `containers` WHERE `areaID` 
 //echo $query. PHP_EOL;
 $result = $db->getRows($query);
 
+echo json_encode($result);
+/*
 var_dump($result);
 // Creating the applet working file
 $fh = fopen($file, 'w') or die("can't open file");
@@ -40,5 +42,10 @@ foreach ($result as $point) {
 fwrite($fc, "EOF");
 fclose($fc);
 
+// Execute java applet
+$res = shell_exec("java -jar AntColony.jar");
 
+echo str_replace("\n","<br>",$res);
+// Jsonize data
+*/
 ?>
