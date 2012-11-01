@@ -15,6 +15,8 @@
     </style>
     
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0bHlB5amUrz5EAEPLFoizXlMoB6N00tM&sensor=false"></script>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     
     <script>
 
@@ -25,18 +27,39 @@
 
       var markers = [];
      
-      var bdPoints = [
-        [ 55.862743, 9.836143 ], // horsens train station
-        [ 55.858575, 9.852081 ], // bilka
-        [ 55.870948, 9.855557 ], // casa arena
-        [ 55.873855, 9.836234 ], // horsens prison
-        [ 55.872989, 9.885088 ]  // via university
-      ];
+      // var bdPoints = [
+      //   [ 55.862743, 9.836143 ], // horsens train station
+      //   [ 55.858575, 9.852081 ], // bilka
+      //   [ 55.870948, 9.855557 ], // casa arena
+      //   [ 55.873855, 9.836234 ], // horsens prison
+      //   [ 55.872989, 9.885088 ]  // via university
+      // ];
 
+      var bdPoints = [];
       var points = [];
+
+      function getJSON() {
+        $.get("json.php", function(data) {
+          // alert(data);
+          var tmp = jQuery.parseJSON(data);
+          for (var i = 0; i < tmp.length; i++) {
+            var lat = tmp[i].Latitude;
+            var lng = tmp[i].Longitude;
+            alert(lat + " " + lng);
+            bdPoints.push([lat, lng]);
+          }
+        });
+      }
 
       function initialize() {
 
+        getJSON();
+
+        window.setTimeout(function() {
+
+
+        alert(bdPoints);
+        
         // converting database points to google maps points
         for (var i = 0; i < bdPoints.length; i++) {
           var lat = bdPoints[i][0];
@@ -58,7 +81,10 @@
 
         map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
         
-        directionsDisplay.setMap(map);        
+        directionsDisplay.setMap(map)
+
+    }, 1000);
+
       }
 
       function clearMap() {
@@ -92,11 +118,13 @@
         var start = points[0]
         var end = points[points.length-1];
         
-        var waypts = [
-          { location: points[1], stopover: true },
-          { location: points[2], stopover: true },
-          { location: points[3], stopover: true }
-        ];
+        // var waypts = [
+        //   { location: points[1], stopover: true },
+        //   { location: points[2], stopover: true },
+        //   { location: points[3], stopover: true }
+        // ];
+
+        var waypts = [];
 
         var request = {
             origin: start,
@@ -153,6 +181,8 @@
       <div id="directions_panel" style="margin:20px;background-color:#FFEE77;"></div>
     
     </div>
+
+    <div class="result"></div>
 
   </body>
 </html>
