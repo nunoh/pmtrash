@@ -1,0 +1,1 @@
+<?php echo '[{"ID": 5,"Latitude":"55.862743","Longitude":"9.836143"},{"ID": "6","Latitude":"55.858575","Longitude":"9.852081"},{"ID": "7","Latitude":"55.870948","Longitude":"9.855557"}]'; ?>
