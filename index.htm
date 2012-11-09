@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    
+    <title>Trash Boom Bang Maps</title>
+    
+    <style type="text/css">
+      html { height: 100% }
+      body { height: 100%; margin: 0; padding: 0 }
+      #map_canvas { height: 100% }
+    </style>
+
+    <link rel="stylesheet" href="print.css" type="text/css" media="print" />
+    
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0bHlB5amUrz5EAEPLFoizXlMoB6N00tM&sensor=false"></script>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    
+    <script src="script.js"></script>
+    
+  </head>
+
+  <body onload="initialize();">
+    
+    <div id="map_canvas" style="float:left;width:70%;height:100%;"></div>
+    
+    <div id="control_panel" style="float:right;width:30%;text-align:left;padding-top:20px">
+    
+      <div style="margin:20px;border-width:2px;">
+        <input type="button" onclick="showAll();" value="Show All Containers"><br/>
+        <input type="button" onclick="showFull();" value="Show Full Containers"><br/>
+        <input type="button" onclick="showRoute();" value="Get Route"><br/>
+        <input type="button" onclick="clean();" value="Clear"><br/>
+        <input type="button" onclick="window.print();" value="Print"><br/>
+      </div>
+      
+      <div id="directions_panel" style="margin:20px;background-color:#FFEE77;"></div>
+    
+    </div>
+
+    <div class="result"></div>
+
+  </body>
+</html>

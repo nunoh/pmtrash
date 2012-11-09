@@ -2,11 +2,19 @@
 // Database Handling class.
 
 class DB
-{
+{	
+	/*
+	private $db_host = 'gnomo.fe.up.pt';
+	private $db_usr = 'ei08067';
+	private $db_pass = 'FCpV3BmFJ';
+	private $db_name = 'ei08067';
+	*/
+
 	private $db_host = 'localhost';
-	private $db_usr = 'DBusr';
-	private $db_pass = 'boombang';
-	private $db_name = 'trash';
+	private $db_usr = 'root';
+	private $db_pass = '';
+	private $db_name = 'pmtrash';
+
 	private $conection;
 	
 	static $_instance;
