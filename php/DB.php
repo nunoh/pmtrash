@@ -115,6 +115,11 @@ class DB {
 			return mysql_num_rows($res);
 		}
 	}
+
+	// TODO Enrique
+	public function setField($field, $value) {
+
+	}
 }
 
 ?>
