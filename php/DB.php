@@ -1,19 +1,19 @@
 <?php
 // Database Handling class.
 
-class DB
-{	
-	/*
-	private $db_host = 'gnomo.fe.up.pt';
-	private $db_usr = 'ei08067';
-	private $db_pass = 'FCpV3BmFJ';
-	private $db_name = 'ei08067';
-	*/
+class DB {		
 
-	private $db_host = 'localhost';
-	private $db_usr = 'root';
-	private $db_pass = '';
-	private $db_name = 'pmtrash';
+	// local
+	// private $db_host = "localhost";
+	// private $db_user = "root";
+	// private $db_pass = "";
+	// private $db_name = "pmtrash";
+
+	// remote nuno's server
+	private $db_host = "localhost";
+	private $db_user = "nunohesp_pmtrash";
+	private $db_pass = "PmTrash!";
+	private $db_name = "nunohesp_pmtrash";
 
 	private $conection;
 	
@@ -21,7 +21,7 @@ class DB
 	
 	private function __construct() {
 		// creating BD instance
-		$this->conection = mysql_connect($this->db_host,$this->db_usr,$this->db_pass);
+		$this->conection = mysql_connect($this->db_host,$this->db_user,$this->db_pass);
 		mysql_select_db($this->db_name, $this->conection);
 		@mysql_query("SET NAMES 'utf8'");
 	}
