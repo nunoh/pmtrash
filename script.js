@@ -1,20 +1,20 @@
 var map;
 var directionDisplay;
 var directionsService;
-var stepDisplay;
 
+// TODO
 var centerPoint = [ 55.862743, 9.836143 ];
 
 var points = [];
 var markers = [];
-var bdPoints = [];
+
+var infoWindow = null;
 
 function initialize() {
 
     // initializing google maps stuff
     directionsService = new google.maps.DirectionsService();
     directionsDisplay = new google.maps.DirectionsRenderer();
-    stepDisplay = new google.maps.InfoWindow();
 
     var mapOptions = {
         zoom: 13,
@@ -25,6 +25,9 @@ function initialize() {
     map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
 
     directionsDisplay.setMap(map);
+
+    infoWindow = new google.maps.InfoWindow();
+    //infoWindow.setContent("loading...");
 }
 
 function clearMap() {
@@ -40,28 +43,37 @@ function clearMap() {
 function show(url) {
 
     points = new Array();
+    //clearMap();
 
     $.get(url, function(data) {
-        var tmp = jQuery.parseJSON(data);
-        for (var i = 0; i < tmp.length; i++) {
-            var lat = tmp[i].Latitude;
-            var lng = tmp[i].Longitude;
-            //alert(lat + " " + lng);
-            points[i] = new google.maps.LatLng(lat, lng);
-        }
-    })
-
-    .complete(function() {
         
-        clearMap();
+        var json = jQuery.parseJSON(data);
+        
+        for (var i = 0; i < json.length; i++) {
+            
+            // parsing json
+            var lat = json[i].Latitude;
+            var lng = json[i].Longitude;
+            var id = json[i].ID;
 
-        // create a marker for each point in array points
-        for (var i = 0; i < points.length; i++) {
-            markers[i] = new google.maps.Marker( { position: points[i] } );          
-            markers[i].setMap(map);
+            // create new marker
+            var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(lat, lng),
+                map: map,
+                title: id,
+                html: "<p>" + "Info for container " + id + "</p>"
+            });
+
+            // add marker to markers array        
+            // markers[i] = marker;
+
+            // add info window to marker
+            google.maps.event.addListener(marker, "click", function() {
+                infoWindow.setContent(this.html);
+                infoWindow.open(map, this);
+            });
         }
-
-    });   
+    });
 }
 
 function showAll() {

@@ -4,16 +4,18 @@
 class DB {		
 
 	// local
-	// private $db_host = "localhost";
-	// private $db_user = "root";
-	// private $db_pass = "";
-	// private $db_name = "pmtrash";
+	private $db_host = "localhost";
+	private $db_user = "root";
+	private $db_pass = "";
+	private $db_name = "pmtrash";
 
 	// remote nuno's server
+	/*
 	private $db_host = "localhost";
 	private $db_user = "nunohesp_pmtrash";
 	private $db_pass = "PmTrash!";
 	private $db_name = "nunohesp_pmtrash";
+	*/
 
 	private $conection;
 	
