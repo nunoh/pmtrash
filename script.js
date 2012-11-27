@@ -10,6 +10,8 @@ var markers = [];
 
 var infoWindow = null;
 
+var DEFAULT_ZOOM = 12;
+
 function initialize() {
 
     // initializing google maps stuff
@@ -17,7 +19,7 @@ function initialize() {
     directionsDisplay = new google.maps.DirectionsRenderer();
 
     var mapOptions = {
-        zoom: 13,
+        zoom: DEFAULT_ZOOM,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         center: new google.maps.LatLng(centerPoint[0], centerPoint[1])
     }
@@ -42,8 +44,8 @@ function clearMap() {
 
 function show(url) {
 
+    clearMap();
     points = new Array();
-    //clearMap();
 
     $.get(url, function(data) {
         
@@ -59,13 +61,13 @@ function show(url) {
             // create new marker
             var marker = new google.maps.Marker({
                 position: new google.maps.LatLng(lat, lng),
-                map: map,
                 title: id,
                 html: "<p>" + "Info for container " + id + "</p>"
             });
 
             // add marker to markers array        
-            // markers[i] = marker;
+            markers[i] = marker;
+            markers[i].setMap(map);
 
             // add info window to marker
             google.maps.event.addListener(marker, "click", function() {
@@ -90,7 +92,7 @@ function showRoute() {
 
     directionsDisplay.setMap(map);
 
-    var start = points[0];
+    var start = markers[0].position;
 
     var waypts = new Array();
 
