@@ -1,11 +1,3 @@
-// var bdPoints = [
-//   [ 55.862743, 9.836143 ], // horsens train station
-//   [ 55.858575, 9.852081 ], // bilka
-//   [ 55.870948, 9.855557 ], // casa arena
-//   [ 55.873855, 9.836234 ], // horsens prison
-//   [ 55.872989, 9.885088 ]  // via university
-// ];
-
 var map;
 var directionDisplay;
 var directionsService;
@@ -86,14 +78,7 @@ function showRoute() {
 
     directionsDisplay.setMap(map);
 
-    var start = points[0]
-    //var end = points[points.length-1];
-
-    // var waypts = [
-    //   { location: points[1], stopover: true },
-    //   { location: points[2], stopover: true },
-    //   { location: points[3], stopover: true }
-    // ];
+    var start = points[0];
 
     var waypts = new Array();
 
@@ -133,7 +118,6 @@ function showSteps(directionResult) {
         for (var i = 0; i < myRoute.steps.length; i++) {          
             var inst = myRoute.steps[i].instructions;
             directionsPanel.innerHTML += "<p>" + (i+1) + ". " + inst + "</p>";
-            // attachInstructionText(marker, myRoute.steps[i].instructions);
         }
     }
 }
