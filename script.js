@@ -1,17 +1,18 @@
 var map;
 var directionsService;
-var totalDistance = 0;
-
-// TODO
-var centerPoint = [ 55.862743, 9.836143 ];
+var infoWindow;
 
 var markers = [];
 var displays = [];
 
-var infoWindow = null;
+var movingIcon = new google.maps.MarkerImage('/img/icon_moving.jpg');
+var startIcon = new google.maps.MarkerImage('/img/icon_start.png');
 
-var DEFAULT_ZOOM = 12;
+var totalDistance = 0;
 
+// TODO
+var centerPoint = [ 55.862743, 9.836143 ];
+  
 function drawRoute(start, end) {
     directionsService.route({
         origin: start,
@@ -32,8 +33,7 @@ function drawRoute(start, end) {
 
 function renderDirections(result) {
     var directionsDisplay = new google.maps.DirectionsRenderer({ 
-        supressMarkers: true, 
-        supressInfoWindows: true,
+        suppressMarkers: true,
         map: map,
         directions: result
     });    
@@ -45,18 +45,19 @@ function initialize() {
 
     // initializing google maps stuff
     directionsService = new google.maps.DirectionsService();
-    directionsDisplay = new google.maps.DirectionsRenderer({ supressMarkers: true, supressInfoWindows: true });
 
+    // map options
     var mapOptions = {
-        zoom: DEFAULT_ZOOM,
+        zoom: 12,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         center: new google.maps.LatLng(centerPoint[0], centerPoint[1])
     }
 
+    // creating a map
     map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
 
+    // creating a info window instance
     infoWindow = new google.maps.InfoWindow();
-    //infoWindow.setContent("loading...");
 }
 
 function clearMap() {
@@ -107,7 +108,6 @@ function loadMarkers(url, show) {
         }
     })
 
-    // because .$get call is asynchronous call
     .complete(function() {
 
         // if it's a show option (either full or all) make sure to show the markers
