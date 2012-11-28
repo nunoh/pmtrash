@@ -3,15 +3,15 @@ var directionsService;
 var infoWindow;
 
 var markers = [];
-var markersSteps = [];
 var displays = [];
-
-var movingIcon = new google.maps.MarkerImage('/img/icon_moving.jpg');
-var startIcon = new google.maps.MarkerImage('/img/icon_start.png');
 
 var totalDistance = 0;
 var iContainer = 0;
-var iInstruction = 1;
+var iStep = 0;
+
+var ICON_NUMBER = "https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=!|ADDE63|000000"; // the '!' should be changed by the number of the container
+var ICON_HOME = "https://chart.googleapis.com/chart?chst=d_map_pin_icon&chld=home|ADDE63";
+var ICON_LAST = "https://chart.googleapis.com/chart?chst=d_map_pin_icon&chld=flag|ADDE63";
 
 // TODO
 var centerPoint = [ 55.862743, 9.836143 ];
@@ -28,26 +28,29 @@ function drawRoute(start, end) {
             setTimeout(function() { drawRoute(start, end); }, 200);
         }
         else {
-            console.log("some other unknown error");
+            alert("unknown error querying Google Maps API");
         }
     });
 }
 
-
 function renderDirections(result) {
+
     var directionsDisplay = new google.maps.DirectionsRenderer({ 
-        suppressMarkers: true,
+        suppressMarkers: true, // make sure not to show the default google maps markers
         map: map,
         directions: result
     });    
+
+    // store on the displays array the current route    
     displays.push(directionsDisplay);
+    
+    // show the steps on the directions div panel
     showSteps(result);
-    // directionsDisplay = null;
 }
 
 function initialize() {
 
-    // initializing google maps stuff
+    // initializing the service for the directions request
     directionsService = new google.maps.DirectionsService();
 
     // map options
@@ -69,16 +72,21 @@ function initialize() {
 
 function clearMap() {
 
-    // remove markers from map
-    for (var i = 0; i < markers.length; i++)
+    // remove container markers from map
+    for (i = 0; i < markers.length; i++) 
         markers[i].setMap(null);
 
-    // reinitalize markers array
+    // reinitalize the markers arrays
     markers = [];
 
     // clear route
     for (i = 0; i < displays.length; i++)
         displays[i].setDirections({routes: []});
+
+    // reset global variables
+    totalDistance = 0;
+    iContainer = 0;
+    iStep = 0;
 }
 
 function loadMarkers(url, show) {
@@ -86,13 +94,14 @@ function loadMarkers(url, show) {
     // make sure that map isn't populated with any data from a previous request
     clearMap();
 
+    // get containers information from a JSON array from a URL webpage
     $.get(url, function(data) {
         
         var json = jQuery.parseJSON(data);
         
         for (var i = 0; i < json.length; i++) {
             
-            // parsing json
+            // parsing json fields
             var lat = json[i].Latitude;
             var lng = json[i].Longitude;
             var id = json[i].ID;
@@ -115,6 +124,7 @@ function loadMarkers(url, show) {
         }
     })
 
+    // since this is an asynchronous function, once it's complete run this method
     .complete(function() {
 
         // if it's a show option (either full or all) make sure to show the markers
@@ -124,14 +134,18 @@ function loadMarkers(url, show) {
 
         // otherwise, it's because it's a route, so draw it
         else {
+
+            // make a request for each pair of containers
             for (i = 0; i < markers.length-1; i++) {
-                var marker1 = markers[i];
-                var marker2 = markers[i+1];
-                drawRoute(marker1.position, marker2.position);
+                var m1 = markers[i];
+                var m2 = markers[i+1];
+                drawRoute(m1.position, m2.position);
             }
-            var marker1 = markers[markers.length-1];
-            var marker2 = markers[0];
-            drawRoute(marker1.position, marker2.position);
+
+            // add route for coming back to base
+            var m1 = markers[markers.length-1];
+            var m2 = markers[0];
+            drawRoute(m1.position, m2.position);
         }
     });
 
@@ -156,9 +170,7 @@ function showRoute() {
 
 function clean() {
     clearMap();
-    iInstruction = 1;
-    directionsPanel = document.getElementById("directions_panel");
-    directionsPanel.innerHTML = "";
+    document.getElementById("directions_panel").innerHTML == "";
 }
 
 function showSteps(directionResult) {
@@ -177,50 +189,50 @@ function showSteps(directionResult) {
         totalDistance += dist;
 
         // write current container text
-        directionsPanel.innerHTML += "<h2>container " + markers[iContainer].title + "</h2>";
+        var from = "C" + markers[iContainer].title;
+        if (iContainer == 0 || iContainer == markers.length) from = 'Base';
+        
+        // write next container text
+        var to = "C" + markers[iContainer+1].title;
+        if (iContainer+1 == 0 || iContainer+1 == markers.length) to = 'Base';
+
+        directionsPanel.innerHTML += "<h3>" + from + " to " + to + "</h3>";
 
         // write directions to div
         for (var i = 0; i < route.steps.length; i++) {
 
-            var inst = route.steps[i].instructions;
-            inst = inst.replace("Destination will be", "Container will be");
+            // get current step
+            var step = route.steps[i].instructions;
+
+            // make sure to replace the "destination will be on your left" step with "the container will be"            
+            step = step.replace("Destination will be", "Container will be");
             
-            directionsPanel.innerHTML += "<p>" + iInstruction + ". " + inst + "</p>";
+            // update the directions panel
+            directionsPanel.innerHTML += "<p>" + (iStep+1) + ". " + step + "</p>";
             
-            iInstruction++;
+            iStep++;
         }
-    }
+    }    
 
-    var icon = "https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=" + iContainer + "|ADDE63|000000";
+    // get icon string for container
+    var icon = ICON_NUMBER.replace("!", iContainer);
 
-    // if is the first containers, special icon
+    // if is the first containers use the home icon
     if (iContainer == 0)
-        icon = "https://chart.googleapis.com/chart?chst=d_map_pin_icon&chld=home|ADDE63";
+        icon = ICON_HOME;
+    
+    // if it is the last container, not counting with coming back to base
     else if (iContainer == markers.length-2)
-        icon = "https://chart.googleapis.com/chart?chst=d_map_pin_icon&chld=flag|ADDE63";
+        icon = ICON_LAST;
     
-    var marker = new google.maps.Marker({
-        position: markers[iContainer].position,
-        map: map,
-        icon: icon
-    });
-    
-    // attachInstructionText(marker, myRoute.steps[i].instructions);
-    // markerArray.push(marker);
-    markersSteps.push(marker);
+    // show icon on map
+    markers[iContainer].setIcon(icon);
+    markers[iContainer].setMap(map);
 
     iContainer++;
 
-    // it's the last one
+    // if it's the last one, then show the total distance
     if (iContainer >= markers.length-1) {
         directionsPanel.innerHTML += "<h1>" + totalDistance.toFixed(1) + " km </h1>"    
     }
 }
-
-function findContainerId(marker) {
-    for (i = 0; i < markers.length; i++) {
-        if  (markers[i].position = marker.position)
-            return markers[i].title;
-    }
-}
-
