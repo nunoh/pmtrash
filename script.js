@@ -52,6 +52,8 @@ function initialize() {
     // map options
     var mapOptions = {
         zoom: 12,
+        streetViewControl: false,
+        // scaleControl: true,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         center: new google.maps.LatLng(centerPoint[0], centerPoint[1])
     }
@@ -170,11 +172,12 @@ function showSteps(directionResult) {
         totalDistance += dist;
 
         // write current container text
-        directionsPanel.innerHTML += "<p>container " + markers[iContainer].title + "</p>";
+        directionsPanel.innerHTML += "<h2>container " + markers[iContainer].title + "</h2>";
 
         // write directions to div
         for (var i = 0; i < route.steps.length; i++) {
             var inst = route.steps[i].instructions;
+            inst = inst.replace("Destination will be", "Container will be");
             directionsPanel.innerHTML += "<p>" + iInstruction + ". " + inst + "</p>";
             iInstruction++;
         }
