@@ -6,7 +6,7 @@ include("DB.php");
 $db = DB::getInstance();
 
 // Getting array of full containers for that area
-$query = "SELECT * FROM History";
+$query = "SELECT * FROM history";
 
 $result = $db->getRows($query);
 
