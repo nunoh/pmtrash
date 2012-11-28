@@ -1,19 +1,18 @@
 var map;
-var directionDisplay;
 var directionsService;
-
 var totalDistance = 0;
 
 // TODO
 var centerPoint = [ 55.862743, 9.836143 ];
 
 var markers = [];
+var displays = [];
 
 var infoWindow = null;
 
 var DEFAULT_ZOOM = 12;
 
-function requestDirections(start, end) {
+function drawRoute(start, end) {
     directionsService.route({
         origin: start,
         destination: end,
@@ -22,8 +21,7 @@ function requestDirections(start, end) {
         if (status == google.maps.DirectionsStatus.OK)
             renderDirections(result);
         else if (status == google.maps.DirectionsStatus.OVER_QUERY_LIMIT) {
-            setTimeout(function() { requestDirections(start, end); }, 1000);
-            console.log("waiting one second, before next request");
+            setTimeout(function() { drawRoute(start, end); }, 200);
         }
         else {
             console.log("some other unknown error");
@@ -33,22 +31,21 @@ function requestDirections(start, end) {
 
 
 function renderDirections(result) {
-    var directionsRenderer = new google.maps.DirectionsRenderer({ 
+    var directionsDisplay = new google.maps.DirectionsRenderer({ 
         supressMarkers: true, 
         supressInfoWindows: true,
         map: map,
         directions: result
-    });
-    // directionsRenderer.setMap(map);
-    // directionsRenderer.setDirections(result);
+    });    
+    displays.push(directionsDisplay);
+    // directionsDisplay = null;
 }
 
 function initialize() {
 
     // initializing google maps stuff
     directionsService = new google.maps.DirectionsService();
-    //directionsDisplay = new google.maps.DirectionsRenderer({ supressMarkers: true, supressInfoWindows: true });
-
+    directionsDisplay = new google.maps.DirectionsRenderer({ supressMarkers: true, supressInfoWindows: true });
 
     var mapOptions = {
         zoom: DEFAULT_ZOOM,
@@ -58,27 +55,28 @@ function initialize() {
 
     map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
 
-    //directionsDisplay.setMap(map);
-
     infoWindow = new google.maps.InfoWindow();
     //infoWindow.setContent("loading...");
 }
 
 function clearMap() {
 
-    // clear markers
+    // remove markers from map
     for (var i = 0; i < markers.length; i++)
         markers[i].setMap(null);
 
+    // reinitalize markers array
+    markers = [];
+
     // clear route
-    //directionsDisplay.setMap(null);
+    for (i = 0; i < displays.length; i++)
+        displays[i].setDirections({routes: []});
 }
 
-function show(url) {
+function loadMarkers(url, show) {
 
+    // make sure that map isn't populated with any data from a previous request
     clearMap();
-
-    markers = new Array();
 
     $.get(url, function(data) {
         
@@ -98,9 +96,8 @@ function show(url) {
                 html: "<p>" + "Info for container " + id + "</p>"
             });
 
-            // add marker to markers array        
-            markers[i] = marker;
-            markers[i].setMap(map);
+            // add marker to markers array
+            markers.push(marker);
 
             // add info window to marker
             google.maps.event.addListener(marker, "click", function() {
@@ -108,35 +105,43 @@ function show(url) {
                 infoWindow.open(map, this);
             });
         }
+    })
+
+    // because .$get call is asynchronous call
+    .complete(function() {
+
+        // if it's a show option (either full or all) make sure to show the markers
+        if (show) {
+            showMarkers();
+        }
+
+        // otherwise, it's because it's a route, so draw it
+        else {
+            for (i = 0; i < markers.length-1; i++) {
+                var marker1 = markers[i];
+                var marker2 = markers[i+1];
+                drawRoute(marker1.position, marker2.position);
+            }
+        }
     });
+
 }
 
-function showAll() {
-    show("php/all.php");
+function showMarkers() {
+    for (i = 0; i < markers.length; i++)
+        markers[i].setMap(map);
+}
+
+function showAll() {    
+    loadMarkers("php/all.php", true);
 }
 
 function showFull() {
-    show("php/pathfinder.php");
+    loadMarkers("php/pathfinder.php", true);
 }
 
-function showRoute2(){
-    requestDirections("Huntsville, AL", "Boston, MA");
-    requestDirections("California, CA", "Stanford, CA");
-}
-
-function showRoute() {
-
-    clearMap();
-
-    for (i = 0; i < markers.length-1; i++) {
-        var marker1 = markers[i];
-        var marker2 = markers[i+1];
-        requestDirections(marker1.position, marker2.position);
-        // window.setTimeout(function() { alert("foo"); }, 5000);
-        // console.log("after requesting " + i);
-        //window.clearTimeout(handle);
-    }
-    //requestDirections(markers[markers.length-1], markers[0]);
+function showRoute() {    
+    loadMarkers("php/pathfinder.php", false);
 }
 
 function clean() {
