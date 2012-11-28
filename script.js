@@ -9,6 +9,8 @@ var movingIcon = new google.maps.MarkerImage('/img/icon_moving.jpg');
 var startIcon = new google.maps.MarkerImage('/img/icon_start.png');
 
 var totalDistance = 0;
+var iContainer = 0;
+var iInstruction = 1;
 
 // TODO
 var centerPoint = [ 55.862743, 9.836143 ];
@@ -38,6 +40,7 @@ function renderDirections(result) {
         directions: result
     });    
     displays.push(directionsDisplay);
+    showSteps(result);
     // directionsDisplay = null;
 }
 
@@ -146,25 +149,50 @@ function showRoute() {
 
 function clean() {
     clearMap();
+    iInstruction = 1;
     directionsPanel = document.getElementById("directions_panel");
     directionsPanel.innerHTML = "";
 }
 
 function showSteps(directionResult) {
+    
     directionsPanel = document.getElementById("directions_panel");
-    directionsPanel.innerHTML = "";
+    
     for (var l = 0; l < directionResult.routes[0].legs.length; l++) {
-        var myRoute = directionResult.routes[0].legs[l];
-        var dist = myRoute.distance.value / 1000.0;
+        
+        // current route    
+        var route = directionResult.routes[0].legs[l];
+        
+        // get distance in kms
+        var dist = route.distance.value / 1000.0;
+        
+        // update total distance so far
         totalDistance += dist;
-        directionsPanel.innerHTML += "<h3>" + myRoute.distance.text + " " + myRoute.start_address + " - " + myRoute.end_address + "</h3>";
-        for (var i = 0; i < myRoute.steps.length; i++) {          
-            var inst = myRoute.steps[i].instructions;
-            directionsPanel.innerHTML += "<p>" + (i+1) + ". " + inst + "</p>";
+
+        // write current container text
+        directionsPanel.innerHTML += "<p>container " + markers[iContainer].title + "</p>";
+
+        // write directions to div
+        for (var i = 0; i < route.steps.length; i++) {
+            var inst = route.steps[i].instructions;
+            directionsPanel.innerHTML += "<p>" + iInstruction + ". " + inst + "</p>";
+            iInstruction++;
         }
     }
 
-    directionsPanel.innerHTML += "Total <h1>" + totalDistance.toFixed(1) + " km </h1>"
-    
+    directionsPanel.innerHTML += "<h2>" + totalDistance.toFixed(1) + " km </h2>"    
+    iContainer++;
+
+    // it's the last one
+    if (iContainer >= markers.length-1) {
+        directionsPanel.innerHTML += "<h1>" + totalDistance.toFixed(1) + " km </h1>"    
+    }
+}
+
+function findContainerId(marker) {
+    for (i = 0; i < markers.length; i++) {
+        if  (markers[i].position = marker.position)
+            return markers[i].title;
+    }
 }
 
