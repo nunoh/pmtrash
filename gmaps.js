@@ -210,9 +210,11 @@ function showSteps(directionResult) {
         if (iContainer == 0) from = 'Base';
         
         // write next container text
-        var to = "C" + markers[iContainer+1].title;
-        if ( (iContainer+1) == markers.length-1) to = 'Base';
+        var to;
+        if ( (iContainer+1) == markers.length) to = 'Base';
+        else to = "C" + markers[iContainer+1].title;
 
+        // if it is the first instruction loose the top margin from the <p> tag
         if (iContainer == 0) {
             directionsPanel.innerHTML += "<h3 style='margin-top: 0px'>" + from + " to " + to + "</h3>";
         }
@@ -229,7 +231,7 @@ function showSteps(directionResult) {
             step = step.replace("Destination will be", "Container will be");
             
             // but if we are at the last container, make sure to replace "destination will be" with "base will be"
-            if (iContainer+1 == markers.length-1)
+            if (iContainer+1 == markers.length)
                 step = step.replace("Container will be", "Base will be");
             
             // update the directions panel
