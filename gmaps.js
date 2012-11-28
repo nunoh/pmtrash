@@ -190,11 +190,11 @@ function showSteps(directionResult) {
 
         // write current container text
         var from = "C" + markers[iContainer].title;
-        if (iContainer == 0 || iContainer == markers.length) from = 'Base';
+        if (iContainer == 0) from = 'Base';
         
         // write next container text
         var to = "C" + markers[iContainer+1].title;
-        if (iContainer+1 == 0 || iContainer+1 == markers.length) to = 'Base';
+        if (iContainer+1 == markers.length-1) to = 'Base';
 
         directionsPanel.innerHTML += "<h3>" + from + " to " + to + "</h3>";
 
