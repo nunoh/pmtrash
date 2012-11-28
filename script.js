@@ -180,7 +180,7 @@ function showSteps(directionResult) {
         }
     }
 
-    directionsPanel.innerHTML += "<h2>" + totalDistance.toFixed(1) + " km </h2>"    
+    // directionsPanel.innerHTML += "<h2>" + totalDistance.toFixed(1) + " km </h2>"    
     iContainer++;
 
     // it's the last one
