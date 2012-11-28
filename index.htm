@@ -25,6 +25,10 @@
       #map_canvas { 
         height: 100% 
       }
+
+      #directions_panel {
+        
+      }
     
     </style>
 
@@ -49,8 +53,8 @@
         <input type="button" onclick="showFull();" value="Show Full"><br/>
         <input type="button" onclick="showRoute();" value="Get Route"><br/>
         <input type="button" onclick="clean();" value="Clear Map"><br/>
-        <input type="button" onclick="window.print();" value="Print Directions">
-        <input type="button" onclick="window.print();" value="Print Map"><br/>
+        <!-- <input type="button" onclick="window.print();" value="Print Directions"> -->
+        <!-- <input type="button" onclick="window.print();" value="Print Map"><br/> -->
         
         Set percentage full:
         <select>
@@ -61,7 +65,9 @@
           <option value="100">100%</option>
         </select>
 
-        <input type="button" value="Set Full">
+        <input type="button" value="Set Full"><br/>
+
+        <span id="distance"></span>
 
       </div>
 

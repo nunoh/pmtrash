@@ -1,3 +1,6 @@
+// TODO
+var centerPoint = [ 55.862743, 9.836143 ];
+
 var map;
 var directionsService;
 var infoWindow;
@@ -9,24 +12,40 @@ var totalDistance = 0;
 var iContainer = 0;
 var iStep = 0;
 
+var MAP_OPTIONS = {
+    zoom: 12,
+    streetViewControl: false,
+    mapTypeControl: false,
+    scaleControl: false,
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    center: new google.maps.LatLng(centerPoint[0], centerPoint[1])
+};
+
 var ICON_NUMBER = "https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=!|ADDE63|000000"; // the '!' should be changed by the number of the container
 var ICON_HOME = "https://chart.googleapis.com/chart?chst=d_map_pin_icon&chld=home|ADDE63";
 var ICON_LAST = "https://chart.googleapis.com/chart?chst=d_map_pin_icon&chld=flag|ADDE63";
-
-// TODO
-var centerPoint = [ 55.862743, 9.836143 ];
   
 function drawRoute(start, end) {
+    
+    // request the directions between start and end points
     directionsService.route({
         origin: start,
         destination: end,
-        travelMode: google.maps.DirectionsTravelMode.DRIVING
-    }, function(result, status) {
+        travelMode: google.maps.DirectionsTravelMode.DRIVING    
+    }, 
+
+    function(result, status) {
+        
+        // if evertything ok, just render the result
         if (status == google.maps.DirectionsStatus.OK)
             renderDirections(result);
+        
+        // if error because of query limit, wait 200ms and try again
         else if (status == google.maps.DirectionsStatus.OVER_QUERY_LIMIT) {
             setTimeout(function() { drawRoute(start, end); }, 200);
         }
+
+        // other error, show alert message
         else {
             alert("unknown error querying Google Maps API");
         }
@@ -53,18 +72,8 @@ function initialize() {
     // initializing the service for the directions request
     directionsService = new google.maps.DirectionsService();
 
-    // map options
-    var mapOptions = {
-        zoom: 12,
-        streetViewControl: false,
-        // scaleControl: true,
-        mapTypeControl: false,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-        center: new google.maps.LatLng(centerPoint[0], centerPoint[1])
-    }
-
     // creating a map
-    map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+    map = new google.maps.Map(document.getElementById('map_canvas'), MAP_OPTIONS);
 
     // creating a info window instance
     infoWindow = new google.maps.InfoWindow();
@@ -165,12 +174,20 @@ function showFull() {
 }
 
 function showRoute() {    
+    var directionsPanel = document.getElementById("directions_panel");
+    directionsPanel.style.padding = "10px";
+    var spanDistance = document.getElementById("distance");
+    spanDistance.innerHTML = "<p>Total Distance: <strong>Calculating...</strong></p>";
     loadMarkers("php/pathfinder.php", false);
 }
 
 function clean() {
     clearMap();
-    document.getElementById("directions_panel").innerHTML == "";
+    var directionsPanel = document.getElementById("directions_panel");
+    directionsPanel.innerHTML = "";
+    directionsPanel.style.padding = "0px"
+    var spanDistance = document.getElementById("distance");
+    spanDistance.innerHTML = "";
 }
 
 function showSteps(directionResult) {
@@ -194,9 +211,13 @@ function showSteps(directionResult) {
         
         // write next container text
         var to = "C" + markers[iContainer+1].title;
-        if (iContainer+1 == markers.length-1) to = 'Base';
+        if ( (iContainer+1) == markers.length-1) to = 'Base';
 
-        directionsPanel.innerHTML += "<h3>" + from + " to " + to + "</h3>";
+        if (iContainer == 0) {
+            directionsPanel.innerHTML += "<h3 style='margin-top: 0px'>" + from + " to " + to + "</h3>";
+        }
+        else
+            directionsPanel.innerHTML += "<h3>" + from + " to " + to + "</h3>";   
 
         // write directions to div
         for (var i = 0; i < route.steps.length; i++) {
@@ -206,6 +227,10 @@ function showSteps(directionResult) {
 
             // make sure to replace the "destination will be on your left" step with "the container will be"            
             step = step.replace("Destination will be", "Container will be");
+            
+            // but if we are at the last container, make sure to replace "destination will be" with "base will be"
+            if (iContainer+1 == markers.length-1)
+                step = step.replace("Container will be", "Base will be");
             
             // update the directions panel
             directionsPanel.innerHTML += "<p>" + (iStep+1) + ". " + step + "</p>";
@@ -233,6 +258,8 @@ function showSteps(directionResult) {
 
     // if it's the last one, then show the total distance
     if (iContainer >= markers.length-1) {
-        directionsPanel.innerHTML += "<h1>" + totalDistance.toFixed(1) + " km </h1>"    
+        //directionsPanel.innerHTML += "<h1>" + totalDistance.toFixed(1) + " km </h1>"    
+        var spanDistance = document.getElementById("distance");
+        spanDistance.innerHTML = "<p>Total Distance: <strong>" + totalDistance.toFixed(1) + " km</strong></p>" ;
     }
 }
