@@ -2,3 +2,4 @@ http://you.arenot.me/2010/06/29/google-maps-api-v3-0-multiple-markers-multiple-i
 https://groups.google.com/forum/?fromgroups=#!topic/google-maps-js-api-v3/ubomY2IT728
 http://stackoverflow.com/questions/315078/how-do-you-handle-multiple-instances-of-settimeout
 http://stackoverflow.com/questions/9805529/geocoding-api-over-query-limit
+http://stackoverflow.com/questions/4434118/select-statement-to-find-duplicates-on-certain-fields

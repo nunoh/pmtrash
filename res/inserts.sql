@@ -1,4 +1,3 @@
-INSERT INTO containers (areaID, Latitude, Longitude) VALUES (0, '55.890543','9.951553');
 INSERT INTO containers (areaID, Latitude, Longitude) VALUES (0, '55.893902','10.00391');
 INSERT INTO containers (areaID, Latitude, Longitude) VALUES (0, '55.890543','9.951553');
 INSERT INTO containers (areaID, Latitude, Longitude) VALUES (0, '55.957677','9.983482');
@@ -10,7 +9,6 @@ INSERT INTO containers (areaID, Latitude, Longitude) VALUES (0, '55.894201','9.8
 INSERT INTO containers (areaID, Latitude, Longitude) VALUES (0, '55.912667','9.803925');
 INSERT INTO containers (areaID, Latitude, Longitude) VALUES (0, '55.926519','9.774742');
 INSERT INTO containers (areaID, Latitude, Longitude) VALUES (0, '55.927288','9.683418');
-INSERT INTO containers (areaID, Latitude, Longitude) VALUES (0, '55.890369','9.774742');
 INSERT INTO containers (areaID, Latitude, Longitude) VALUES (0, '55.876572','9.704361');
 INSERT INTO containers (areaID, Latitude, Longitude) VALUES (0, '55.890369','9.774742');
 INSERT INTO containers (areaID, Latitude, Longitude) VALUES (0, '55.893623','9.770966');
@@ -87,9 +85,7 @@ INSERT INTO containers (areaID, Latitude, Longitude) VALUES (0, '55.858074','9.8
 INSERT INTO containers (areaID, Latitude, Longitude) VALUES (0, '55.858748','9.850702');
 INSERT INTO containers (areaID, Latitude, Longitude) VALUES (0, '55.858267','9.842634');
 INSERT INTO containers (areaID, Latitude, Longitude) VALUES (0, '55.857014','9.838428');
-INSERT INTO containers (areaID, Latitude, Longitude) VALUES (0, '55.857014','9.838428');
 INSERT INTO containers (areaID, Latitude, Longitude) VALUES (0, '55.855762','9.836454');
-INSERT INTO containers (areaID, Latitude, Longitude) VALUES (0, '55.854846','9.833879');
 INSERT INTO containers (areaID, Latitude, Longitude) VALUES (0, '55.854846','9.833879');
 INSERT INTO containers (areaID, Latitude, Longitude) VALUES (0, '55.858989','9.838343');
 INSERT INTO containers (areaID, Latitude, Longitude) VALUES (0, '55.859904','9.835339');
