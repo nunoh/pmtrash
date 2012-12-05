@@ -6,7 +6,7 @@ include("DB.php");
 $db = DB::getInstance();
 
 // Any area in particular?
-$area = 0; 					// Defaults to 0 for testing purposes
+$area = 0; 					// Default to 0 for testing purposes
 $file = "files/test.tsp";
 if (isset($_GET['area'])) {	
 	$area = $_GET['area'];
@@ -20,6 +20,7 @@ $result = $db->getRows($query);
 
 echo json_encode($result);
 /*
+var_dump($result);
 // Creating the applet working file
 $fh = fopen($file, 'w') or die("can't open file");
 
@@ -45,5 +46,6 @@ fclose($fc);
 $res = shell_exec("java -jar AntColony.jar");
 
 echo str_replace("\n","<br>",$res);
+// Jsonize data
 */
 ?>

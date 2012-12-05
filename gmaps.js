@@ -9,6 +9,7 @@ var markers = [];
 var displays = [];
 
 var totalDistance = 0;
+var totalTime = 0;
 var iContainer = 0;
 var iStep = 0;
 
@@ -21,10 +22,31 @@ var MAP_OPTIONS = {
     center: new google.maps.LatLng(centerPoint[0], centerPoint[1])
 };
 
+var spanDistance;
+var spanTime;
+var directionsPanel;
+
 var ICON_NUMBER = "https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=!|ADDE63|000000"; // the '!' should be changed by the number of the container
 var ICON_HOME = "https://chart.googleapis.com/chart?chst=d_map_pin_icon&chld=home|ADDE63";
 var ICON_LAST = "https://chart.googleapis.com/chart?chst=d_map_pin_icon&chld=flag|ADDE63";
-  
+
+function initialize() {
+
+    // initializing the service for the directions request
+    directionsService = new google.maps.DirectionsService();
+
+    // creating a map
+    map = new google.maps.Map(document.getElementById('map_canvas'), MAP_OPTIONS);
+
+    // creating a info window instance
+    infoWindow = new google.maps.InfoWindow();
+
+    // load span references
+    spanDistance = document.getElementById("distance");
+    spanTime = document.getElementById("time");
+    directionsPanel = document.getElementById("directions_panel");
+}
+
 function drawRoute(start, end) {
     
     // request the directions between start and end points
@@ -52,6 +74,30 @@ function drawRoute(start, end) {
     });
 }
 
+// convert seconds to hours and minutes string
+function convertTime(seconds) {
+
+    var minutes = Math.round(seconds/60);
+    var hours = Math.floor(minutes/60);
+    minutes = minutes - hours*60;
+    
+    // add leading zero
+    var sHours = hours;
+    if (hours < 10) sHours = "0" + hours;
+
+    // add leading zero
+    var sMinutes = minutes;
+    if (minutes < 10) sMinutes = "0" + minutes;
+
+    var str = sHours + "h " + sMinutes + "m";
+    
+    return str;
+}
+
+function convertDistance(meters) {
+    return meters.toFixed(1) + " km";
+}
+
 function renderDirections(result) {
 
     var directionsDisplay = new google.maps.DirectionsRenderer({ 
@@ -65,18 +111,6 @@ function renderDirections(result) {
     
     // show the steps on the directions div panel
     showSteps(result);
-}
-
-function initialize() {
-
-    // initializing the service for the directions request
-    directionsService = new google.maps.DirectionsService();
-
-    // creating a map
-    map = new google.maps.Map(document.getElementById('map_canvas'), MAP_OPTIONS);
-
-    // creating a info window instance
-    infoWindow = new google.maps.InfoWindow();
 }
 
 function clearMap() {
@@ -94,6 +128,7 @@ function clearMap() {
 
     // reset global variables
     totalDistance = 0;
+    totalTime = 0;
     iContainer = 0;
     iStep = 0;
 }
@@ -174,20 +209,20 @@ function showFull() {
 }
 
 function showRoute() {    
-    var directionsPanel = document.getElementById("directions_panel");
-    directionsPanel.style.padding = "10px";
-    var spanDistance = document.getElementById("distance");
-    spanDistance.innerHTML = "<p>Total Distance: <strong>Calculating...</strong></p>";
+    
+    clean();
+    
+    spanDistance.innerHTML = "Calculating...";
+    spanTime.innerHTML = "Calculating...";
+    
     loadMarkers("php/pathfinder.php", false);
 }
 
 function clean() {
-    clearMap();
-    var directionsPanel = document.getElementById("directions_panel");
+    clearMap();    
     directionsPanel.innerHTML = "";
-    directionsPanel.style.padding = "0px"
-    var spanDistance = document.getElementById("distance");
-    spanDistance.innerHTML = "";
+    spanDistance.innerHTML = "N/A";
+    spanDistance.innerHTML = "N/A";
 }
 
 function showSteps(directionResult) {
@@ -201,9 +236,12 @@ function showSteps(directionResult) {
         
         // get distance in kms
         var dist = route.distance.value / 1000.0;
+        var time = route.duration.value; // in seconds
         
         // update total distance so far
         totalDistance += dist;
+        totalTime += time;
+        console.log(time);
 
         // write current container text
         var from = "C" + markers[iContainer].title;
@@ -214,14 +252,10 @@ function showSteps(directionResult) {
         if ( (iContainer+1) == markers.length) to = 'Base';
         else to = "C" + markers[iContainer+1].title;
 
-        // if it is the first instruction loose the top margin from the <p> tag
-        if (iContainer == 0) {
-            directionsPanel.innerHTML += "<h3 style='margin-top: 0px'>" + from + " to " + to + "</h3>";
-        }
-        else
-            directionsPanel.innerHTML += "<h3>" + from + " to " + to + "</h3>";   
+        directionsPanel.innerHTML += "<h3>" + from + " to " + to + "</h3>";   
 
         // write directions to div
+        directionsPanel.innerHTML += "<p>";
         for (var i = 0; i < route.steps.length; i++) {
 
             // get current step
@@ -236,9 +270,17 @@ function showSteps(directionResult) {
             
             // update the directions panel
             directionsPanel.innerHTML += "<p>" + (iStep+1) + ". " + step + "</p>";
+            // directionsPanel.innerHTML += (iStep+1) + ". " + step + "<br/>";
+
+            // scroll the overflow to the bottom            
+            directionsPanel.scrollTop = directionsPanel.scrollHeight;
             
             iStep++;
         }
+        directionsPanel.innerHTML += "</p>";
+
+        spanTime.innerHTML = convertTime(totalTime);
+        spanDistance.innerHTML = convertDistance(totalDistance);
     }    
 
     // get icon string for container
@@ -259,9 +301,11 @@ function showSteps(directionResult) {
     iContainer++;
 
     // if it's the last one, then show the total distance
-    if (iContainer >= markers.length-1) {
-        //directionsPanel.innerHTML += "<h1>" + totalDistance.toFixed(1) + " km </h1>"    
-        var spanDistance = document.getElementById("distance");
-        spanDistance.innerHTML = "<p>Total Distance: <strong>" + totalDistance.toFixed(1) + " km</strong></p>" ;
+    if (iContainer >= markers.length) {
+
+        // update the distance and time
+        spanDistance.innerHTML = convertDistance(totalDistance);
+        timeStr = convertTime(totalTime);
+        spanTime.innerHTML = timeStr;
     }
 }
