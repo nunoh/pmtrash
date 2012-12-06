@@ -55,6 +55,7 @@
 
         #controls_panel {
             height: 30px;
+            width: 590px;
         }
 
         #map_canvas { 
@@ -92,9 +93,41 @@
             clear: both;
             padding-top: 30px;
             text-align: center;
-        }    
+        }
 
-    
+        #progressbar {
+            width: 200px;
+            height: 20px;
+            margin: 5px;
+            margin: auto;
+            text-align: center;
+        }
+
+        /*#progressbar span { 
+            width: 300px;
+            position: absolute;
+            text-align: center;
+            font-weight: bold;
+        } */
+
+        /*#progressbar .ui-progressbar {
+            position: relative;
+        }*/
+
+        #progressbar .ui-progressbar-value {
+            margin-left: 20px;
+            margin-left: 0px;
+            text-align: center:;
+        }
+
+        /*#progressbar #caption {
+            text-align: center;
+        }*/
+
+        .progress.ui-progressbar {position:relative;height:2em;}
+        .progress span {position:static;margin-top:-2em;text-align:center;display:block;line-height:2em;padding-left:10px;padding-right:10px;}
+        .progress[aria-valuenow="0"] span {margin-top:0px;}​ 
+
     </style>
 
     <!-- load heading font from Google Fonts -->
@@ -102,8 +135,23 @@
     <!-- <link rel="stylesheet" href="print.css" type="text/css" media="print" /> -->
     
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/base/jquery-ui.css" type="text/css" />
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0bHlB5amUrz5EAEPLFoizXlMoB6N00tM&sensor=false&language=en"></script>    
     <script src="gmaps.js"></script>
+
+    <script type="text/javascript">
+
+    // $(document).ready(function() {
+        $(".progress").each(function() {
+            var progressValue = $(this).data("value");
+            $(this).progressbar({
+                value: progressValue
+            }).children("span").appendTo(this);
+        });
+    // });​
+
+    </script>
 
   </head>
 
@@ -125,9 +173,9 @@
                     <input type="button" onclick="showFull();" value="Show Full">
                     <input type="button" onclick="showRoute();" value="Get Route">
                     <input type="button" onclick="clean();" value="Clear Map">
-                    <input type="button" onclick="window.print();" value="Print Directions">
-                    <input type="button" onclick="window.print();" value="Print Map">
-                    <!--
+                    <!-- <input type="button" onclick="window.print();" value="Print Directions">
+                    <input type="button" onclick="window.print();" value="Print Map"> -->
+                    
                     Set percentage full:
                     <select>
                       <option value="0">0%</option>          
@@ -138,7 +186,7 @@
                     </select>
 
                     <input type="button" value="Set Full">
-                -->
+                
 
                     
                 </div>
@@ -161,9 +209,15 @@
         
         <div id="footer">&copy; 2012 VIA University College</div>
 
-    </div> <!-- wrapper -->
-      
-    <div style="clear:both"><!-- &nbsp --></div>
+    </div> <!-- wrapper -->    
 
+    <!-- <div id="progressbar"><span id="caption"></span></div> -->
+
+    <div class="progress" data-value="80"><span>80%</span></div></td>
+
+    <!-- <div class="progressbar">
+        <span style="position:absolute; margin-left:10px; margin-top:2px">45% or whatever text you want to put in here</span>
+        </div> -->
+      
   </body>
 </html>

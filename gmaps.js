@@ -28,7 +28,7 @@ var directionsPanel;
 
 var ICON_NUMBER = "https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=!|ADDE63|000000"; // the '!' should be changed by the number of the container
 var ICON_HOME = "https://chart.googleapis.com/chart?chst=d_map_pin_icon&chld=home|ADDE63";
-var ICON_LAST = "https://chart.googleapis.com/chart?chst=d_map_pin_icon&chld=flag|ADDE63";
+var ICON_LAST = "https://chart.googleapis.com/chart?chst=d_map_pin_icon&chld=flag|ADDE63";    
 
 function initialize() {
 
@@ -57,7 +57,7 @@ function drawRoute(start, end) {
     }, 
 
     function(result, status) {
-        
+
         // if evertything ok, just render the result
         if (status == google.maps.DirectionsStatus.OK)
             renderDirections(result);
@@ -89,7 +89,7 @@ function convertTime(seconds) {
     var sMinutes = minutes;
     if (minutes < 10) sMinutes = "0" + minutes;
 
-    var str = sHours + "h " + sMinutes + "m";
+    var str = sHours + "h" + sMinutes + "m";
     
     return str;
 }
@@ -215,6 +215,10 @@ function showRoute() {
     spanDistance.innerHTML = "Calculating...";
     spanTime.innerHTML = "Calculating...";
     
+    $( "#progressbar" ).progressbar({
+        value: 0
+    });
+
     loadMarkers("php/pathfinder.php", false);
 }
 
@@ -241,8 +245,7 @@ function showSteps(directionResult) {
         // update total distance so far
         totalDistance += dist;
         totalTime += time;
-        console.log(time);
-
+        
         // write current container text
         var from = "C" + markers[iContainer].title;
         if (iContainer == 0) from = 'Base';
@@ -281,7 +284,17 @@ function showSteps(directionResult) {
 
         spanTime.innerHTML = convertTime(totalTime);
         spanDistance.innerHTML = convertDistance(totalDistance);
-    }    
+
+        var percentage = Math.round( (iContainer+1) / markers.length * 100 );
+
+        $("#progressbar")
+            .progressbar("value", percentage)
+            .children('.ui-progressbar-value')
+            .html(percentage + '%');
+
+        // $("#progressbar").progressbar("value", percentage + "%");
+        // $("#progressbar #caption").text(percentage);
+    }
 
     // get icon string for container
     var icon = ICON_NUMBER.replace("!", iContainer);
