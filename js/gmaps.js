@@ -71,7 +71,7 @@ function initialize() {
         allowedBounds = map.getBounds();
     });
 
-    // google.maps.event.addListener(map,'center_changed', function() { checkBounds(); });
+    google.maps.event.addListener(map,'center_changed', function() { checkBounds(); });
 
     google.maps.event.addListener(map, 'zoom_changed', onZoomChanged);
 
