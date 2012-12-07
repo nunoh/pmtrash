@@ -16,11 +16,12 @@ body {
 p {
     margin: 10px;
     padding: 0px;
+    line-height: 14px;
 }
 
 h3 {
     font-size: 14px;
-    line-height: 40px;
+    line-height: 30px;    
 }
 
 #wrapper {
@@ -77,9 +78,11 @@ h3 {
     height: 40px;
     float: left;
     margin-left: 10px;
+    font-family: 'Share Tech', sans-serif;
+    font-size: 16px;
 }
 
-#distance, #time {
+#distance, #time {    
     font-weight: bold;
 }
 
