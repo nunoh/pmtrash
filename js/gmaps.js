@@ -1,9 +1,13 @@
 // TODO
 var centerPoint = [ 55.862743, 9.836143 ];
 
+var allowedBounds;
+
 var map;
 var directionsService;
 var infoWindow;
+
+var zoomChanging = false;
 
 var markers = [];
 var displays = [];
@@ -35,6 +39,9 @@ var DEFAULT_DIRECTIONS_TEXT = "<p>No route currently selected. Press the <strong
 var DEFAULT_TIME_TEXT = "N/A";
 var DEFAULT_DISTANCE_TEXT = "N/A";
 
+var DEFAULT_MIN_ZOOM = 11;
+var DEFAULT_MAX_ZOOM = 16;
+
 function initialize() {
 
     // initializing the service for the directions request
@@ -58,7 +65,34 @@ function initialize() {
         closeOnEscape: false,
         resizable: false,
         draggable: false,
-    });    
+    });
+
+    google.maps.event.addListenerOnce(map, 'idle', function() {
+        allowedBounds = map.getBounds();
+    });
+
+    // google.maps.event.addListener(map,'center_changed', function() { checkBounds(); });
+
+    google.maps.event.addListener(map, 'zoom_changed', onZoomChanged);
+
+    // map.setOptions({draggable: false, zoomControl: true, scrollwheel: false, disableDoubleClickZoom: true});
+}
+
+function onZoomChanged() {
+    if (zoomChanging) return;
+
+    if (map.getZoom() > DEFAULT_MAX_ZOOM) {
+        zoomChanging = true;
+        map.setZoom(DEFAULT_MAX_ZOOM);
+        zoomChanging = false;
+        return;
+    }
+    else if (map.getZoom() < DEFAULT_MIN_ZOOM) {
+        zoomChanging = true;
+        map.setZoom(DEFAULT_MIN_ZOOM);
+        zoomChanging = false;
+        return;
+    }
 }
 
 function drawRoute(start, end) {
@@ -347,5 +381,25 @@ function showSteps(directionResult) {
         spanTime.innerHTML = convertTime(totalTime);
 
         $("#dialog").dialog("close");
+    }
+}
+
+function checkBounds() {    
+    if (!allowedBounds.contains(map.getCenter())) {
+        var C = map.getCenter();
+        var X = C.lng();
+        var Y = C.lat();
+
+        var AmaxX = allowedBounds.getNorthEast().lng();
+        var AmaxY = allowedBounds.getNorthEast().lat();
+        var AminX = allowedBounds.getSouthWest().lng();
+        var AminY = allowedBounds.getSouthWest().lat();
+
+        if (X < AminX) {X = AminX;}
+        if (X > AmaxX) {X = AmaxX;}
+        if (Y < AminY) {Y = AminY;}
+        if (Y > AmaxY) {Y = AmaxY;}
+
+        map.setCenter(new google.maps.LatLng(Y,X));
     }
 }
