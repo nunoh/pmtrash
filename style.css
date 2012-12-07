@@ -1,6 +1,6 @@
 body {
     /* to make sure the image fits the whole broser window */
-    background: url("res/background.png") no-repeat center center fixed;
+    background: url("background.png") no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -77,7 +77,7 @@ h3 {
 
 #footer {
     clear: both;
-    padding-top: 30px;
+    padding-top: 20px;
     text-align: center;
 }
 

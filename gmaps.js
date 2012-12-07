@@ -116,7 +116,8 @@ function renderDirections(result) {
     var directionsDisplay = new google.maps.DirectionsRenderer({ 
         suppressMarkers: true, // make sure not to show the default google maps markers
         map: map,
-        directions: result
+        preserveViewport: true,
+        directions: result        
     });    
 
     // store on the displays array the current route    
@@ -184,9 +185,12 @@ function loadMarkers(url, show) {
     // since this is an asynchronous function, once it's complete run this method
     .complete(function() {
 
+        centerMap();
+
         // if it's a show option (either full or all) make sure to show the markers
         if (show) {
             showMarkers();
+            
         }
 
         // otherwise, it's because it's a route, so draw it
@@ -208,25 +212,28 @@ function loadMarkers(url, show) {
 
 }
 
-function showMarkers() {
+function showMarkers() {    
     for (i = 0; i < markers.length; i++)
         markers[i].setMap(map);
 }
 
 function showAll() {    
+    clean();
     loadMarkers("php/all.php", true);
 }
 
 function showFull() {
+    clean();
     loadMarkers("php/pathfinder.php", true);
 }
 
 function showRoute() {
 
-    clean();
+    clearMap();
     
     spanDistance.innerHTML = "Calculating...";
     spanTime.innerHTML = "Calculating...";
+    directionsPanel.innerHTML = "";
     
     // show the loading dialog
     $("#dialog").dialog("open");
@@ -239,6 +246,15 @@ function clean() {
     directionsPanel.innerHTML = DEFAULT_DIRECTIONS_TEXT;
     spanDistance.innerHTML = DEFAULT_DISTANCE_TEXT;
     spanTime.innerHTML = DEFAULT_TIME_TEXT;
+}
+
+function centerMap() {
+    console.log("inside center map begin");
+    var bounds = new google.maps.LatLngBounds();
+    for (i = 0; i < markers.length; i++)
+        bounds.extend(markers[i].position);
+    map.fitBounds(bounds);
+    console.log("inside center map end");
 }
 
 function showSteps(directionResult) {
@@ -285,7 +301,6 @@ function showSteps(directionResult) {
             
             // update the directions panel
             directionsPanel.innerHTML += "<p>" + (iStep+1) + ". " + step + "</p>";
-            // directionsPanel.innerHTML += (iStep+1) + ". " + step + "<br/>";
 
             // scroll the overflow to the bottom            
             directionsPanel.scrollTop = directionsPanel.scrollHeight;
@@ -299,16 +314,8 @@ function showSteps(directionResult) {
 
         var percentage = Math.round( (iContainer+1) / markers.length * 100 );
 
-        // $("#progressbar")
-        //     .progressbar("value", percentage)
-        //     .children('.ui-progressbar-value')
-        //     .html(percentage + '%');
-
         $(".progress span strong").text(percentage + "%");
         $(".progress").progressbar({value: percentage}).children("span").appendTo($(".progress"));
-
-        // $("#progressbar").progressbar("value", percentage + "%");
-        // $("#progressbar #caption").text(percentage);
     }
 
     // get icon string for container
@@ -328,13 +335,14 @@ function showSteps(directionResult) {
 
     iContainer++;
 
+    // centerMap();
+
     // if it's the last one, then show the total distance
     if (iContainer >= markers.length) {
 
         // update the distance and time
         spanDistance.innerHTML = convertDistance(totalDistance);
-        timeStr = convertTime(totalTime);
-        spanTime.innerHTML = timeStr;
+        spanTime.innerHTML = convertTime(totalTime);
 
         $("#dialog").dialog("close");
     }
