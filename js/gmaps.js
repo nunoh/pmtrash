@@ -237,8 +237,6 @@ function showRoute() {
 
     clearMap();
     
-    spanDistance.innerHTML = "Calculating...";
-    spanTime.innerHTML = "Calculating...";
     directionsPanel.innerHTML = "";
     
     // show the loading dialog
