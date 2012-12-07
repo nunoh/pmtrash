@@ -15,9 +15,10 @@ var iStep = 0;
 
 var MAP_OPTIONS = {
     zoom: 12,
-    streetViewControl: false,
-    mapTypeControl: false,
-    scaleControl: false,
+    // streetViewControl: false,
+    // mapTypeControl: false,
+    // scaleControl: false,
+    disableDefaultUI: true,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     center: new google.maps.LatLng(centerPoint[0], centerPoint[1])
 };
@@ -219,7 +220,12 @@ function showMarkers() {
 
 function showAll() {    
     clean();
-    loadMarkers("php/all.php", true);
+    loadMarkers("php/get_all.php", true);
+}
+
+function showEmpty() {    
+    clean();
+    loadMarkers("php/get_empty.php", true);
 }
 
 function showFull() {

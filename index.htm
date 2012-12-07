@@ -10,7 +10,6 @@
     
     <!-- to load Twitter Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <!-- <script src="js/bootstrap.min.js"></script> -->
 
     <!-- external CSS file -->
     <link rel="stylesheet" type="text/css" href="css/style.css">
@@ -25,10 +24,10 @@
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
     
     <!-- jQUery UI theme -->
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/flick/jquery-ui.css" type="text/css" />
     <!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/humanity/jquery-ui.css" type="text/css" />  -->
     <!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/base/jquery-ui.css" type="text/css" />     -->
     <!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/pepper-grinder/jquery-ui.css" type="text/css" /> -->
-    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/flick/jquery-ui.css" type="text/css" />
     <!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/black-tie/jquery-ui.css" type="text/css" /> -->
     <!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/blitzer/jquery-ui.css" type="text/css" /> -->
     <!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/eggplant/jquery-ui.css" type="text/css" /> -->
@@ -53,6 +52,9 @@
 
   <body onload="initialize();">
 
+    <!-- this had to be included in the body otherwise it won't work -->
+    <script src="js/bootstrap.js"></script>
+
     <div id="wrapper">
 
         <div id="title">
@@ -65,40 +67,20 @@
 
                 <div id="controls_panel" class="btn-toolbar">
                     
-                <div class="btn-group">
-                    <button class="btn btn-primary btn-small dropdown-toggle" data-toggle="dropdown">Action <span class="caret"></span></button>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
-                    </ul>             
-                </div>
-
-                    <button class="btn btn-primary btn-small" onclick="showRoute();"><i class="icon-download-alt icon-white"></i> Get Route</a>
-                    <button class="btn btn-primary btn-small" onclick="window.print();"><i class="icon-print icon-white"></i> Print Route</a>
-                    <button class="btn btn-primary btn-small" onclick="clean();"><i class="icon-remove icon-white"></i> Clear Map</a>
-
-                    <!-- <a class="btn btn-primary btn-small" onclick="showAll();"><i class="icon-map-marker icon-white"></i> Show All</a> -->
-                    <!-- <input type="button" class="btn btn-primary btn-small" onclick="showAll();" value="Show All"> -->
-                    <!-- <input type="button" class="btn btn-primary btn-small" onclick="showFull();" value="Show Full"> -->
-                    <!-- <input type="button" class="btn btn-primary btn-small" onclick="showRoute();" value="Get Route"> -->                    
-                    <!-- <input type="button" class="btn btn-primary btn-small" onclick="clean();" value="Clear Map"> -->
-                    <!-- <input type="button" class="btn btn-primary btn-small" onclick="window.print();" value="Print Directions"> -->                    
-                    <!-- <input type="button" class="btn btn-primary btn-small" onclick="window.print();" value="Print Map"> -->
-
-                    <!-- <div class="btn-group">
-                        <button class="btn btn-primary btn-small dropdown-toggle" data-toggle="dropdown">Action <span class="caret"></span></button>
+                    <div class="btn-group">
+                        <button class="btn btn-primary btn-small dropdown-toggle" data-toggle="dropdown"><i class="icon-map-marker icon-white"></i> Show <span class="caret"></span></button>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
+                            <li><a href="javascript:void(0)" onclick="showFull()"><!-- <i class="icon-"></i> --> Full</a></li>
+                            <li><a href="javascript:void(0)" onclick="showEmpty()"><!-- <i class="icon-"></i> --> Empty</a></li>
+                            <li><a href="javascript:void(0)" onclick="showAll()"><!-- <i class="icon-"></i> --> All</a></li>
                         </ul>
-                    </div> -->
-                    
+                        
+                    </div>
+
+                    <div class="btn-group"><button class="btn btn-primary btn-small" onclick="clean()"><i class="icon-remove icon-white"></i> Clear Map</a></div>
+                    <div class="btn-group"><button class="btn btn-primary btn-small" onclick="showRoute()"><i class="icon-download-alt icon-white"></i> Get Route</a></div>
+                    <div class="btn-group"><button class="btn btn-primary btn-small" onclick="window.print()"><i class="icon-print icon-white"></i> Print Route</a></div>
+                        
                     <!-- Set percentage full:
                     <select>
                       <option value="0">0%</option>          
