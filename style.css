@@ -1,11 +1,10 @@
 body {
     /* to make sure the image fits the whole broser window */
-    background: url("res/background.png") no-repeat center center fixed; 
+    background: url("res/background.png") no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-
     font-family: Arial, Helvetica, sans-serif;
     font-size: 12px;
 }
@@ -25,17 +24,15 @@ h3 {
 }
 
 #title {
-
 }
 
 #title h1 {
     font-family: 'Share Tech', sans-serif;
     font-size: 30px;
-    text-align: center;            
+    text-align: center;
 }
 
 #content {
-    
 }
 
 #map_wrapper {
@@ -47,7 +44,7 @@ h3 {
     width: 590px;
 }
 
-#map_canvas { 
+#map_canvas {
     width: 590px;
     height: 450px;
     box-shadow: 1px 1px 4px 2px rgba(0,0,0,0.5);

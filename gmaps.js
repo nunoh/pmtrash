@@ -30,6 +30,10 @@ var ICON_NUMBER = "https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld
 var ICON_HOME = "https://chart.googleapis.com/chart?chst=d_map_pin_icon&chld=home|ADDE63";
 var ICON_LAST = "https://chart.googleapis.com/chart?chst=d_map_pin_icon&chld=flag|ADDE63";    
 
+var DEFAULT_DIRECTIONS_TEXT = "<p>No route currently selected. Press the <strong>'Get Route'</strong> button.</p>";
+var DEFAULT_TIME_TEXT = "N/A";
+var DEFAULT_DISTANCE_TEXT = "N/A";
+
 function initialize() {
 
     // initializing the service for the directions request
@@ -232,9 +236,9 @@ function showRoute() {
 
 function clean() {
     clearMap();    
-    directionsPanel.innerHTML = "";
-    spanDistance.innerHTML = "N/A";
-    spanDistance.innerHTML = "N/A";
+    directionsPanel.innerHTML = DEFAULT_DIRECTIONS_TEXT;
+    spanDistance.innerHTML = DEFAULT_DISTANCE_TEXT;
+    spanTime.innerHTML = DEFAULT_TIME_TEXT;
 }
 
 function showSteps(directionResult) {
