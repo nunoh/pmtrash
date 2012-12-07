@@ -1,16 +1,9 @@
 html {
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 
 body {
-    /* to make sure the image fits the whole broser window */
-    background: url("../img/background.png") no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
     font-family: 'Lato', Tahoma, Arial, sans-serif;
-    /*font-family: Arial, Helvetica, sans-serif;*/
     font-size: 12px;
 }
 
@@ -18,73 +11,79 @@ p {
     margin: 10px;
     padding: 0px;
     line-height: 14px;
+    font-size: 11pt;
 }
 
 h3 {
-    font-size: 14px;
+    font-size: 16px;
     line-height: 30px;    
 }
 
 #wrapper {
-    width: 1000px;
+    width: 90%;
     margin: auto;
-    margin-top: 40px;
 }
 
 #title {
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
 #title h1 {
     font-family: 'Share Tech', sans-serif;
-    font-size: 30px;
+    font-size: 18px;
     text-align: center;
 }
 
 #content {
+
 }
 
 #map_wrapper {
-    float: left;
+    /*float: left;*/
 }
 
 #controls_panel {
-    height: 40px;
+    height: 1px;
     width: 590px;
     margin: 0;
+    visibility: hidden;
 }
 
 #map_canvas {
-    width: 590px;
+    width: 600px;
     height: 450px;
     box-shadow: 1px 1px 4px 2px rgba(0,0,0,0.5);
     margin: auto;
 }
 
 #directions_panel {
-    width: 390px;
-    height: 450px;
+    width: 1000px;
+    /*height: 450px;*/
     margin: auto;
-    background-color: #C8FEA7;
-    float: left;
-    margin-left: 10px;
-    overflow: auto;
-    box-shadow: 1px 1px 4px 2px rgba(0,0,0,0.5);
+    /*background-color: #C8FEA7;*/
+    /*float: left;*/
+    /*margin-left: 10px;*/
+    margin: auto;
+    /*overflow: hidden;*/
+    /*box-shadow: 1px 1px 4px 2px rgba(0,0,0,0.5);*/
     padding-left: 5px;
     padding-right: 5px;
 }
 
 #results {
+    clear: both;
     width: 375px;
-    height: 40px;
-    float: left;
-    margin-left: 10px;
+    height: 50px;
+
+    /*margin-left: 10px;*/
     font-size: 14px;
-    padding-left: 10px;
+    /*padding-left: 10px;*/
+    text-align: center;
+    margin: 20px auto 0px auto;
 }
 
 #distance, #time {    
-    font-weight: bold;s
+    font-weight: bold;
 }
 
 #footer {
@@ -135,19 +134,5 @@ h3 {
 
 #date {
     text-align: center;
-    margin: auto;
-    visibility: hidden;
-}
-
-.ui-dialog .ui-dialog-buttonpane button {
-    float: none;
-}
-
-.ui-dialog .ui-dialog-buttonpane {
-    text-align: center;
-}
-
-#dialog_print {
-    text-align: center;
-    margin: auto;
+    font-weight: bold;
 }

@@ -74,8 +74,7 @@ function initialize() {
     google.maps.event.addListener(map,'center_changed', function() { checkBounds(); });
 
     google.maps.event.addListener(map, 'zoom_changed', onZoomChanged);
-
-    // map.setOptions({draggable: false, zoomControl: true, scrollwheel: false, disableDoubleClickZoom: true});
+    
 }
 
 function onZoomChanged() {
@@ -401,5 +400,45 @@ function checkBounds() {
         if (Y > AmaxY) {Y = AmaxY;}
 
         map.setCenter(new google.maps.LatLng(Y,X));
+    }
+}
+
+function showDate() {
+    var date = new Date();
+    var day = date.getDate();
+    var month = date.getMonth()+1;
+    var year = date.getFullYear();
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+
+    if (day < 10) day = "0" + day;
+    if (month < 10) month = "0" + month;
+    if (hours < 10) hours = "0" + hours;
+    if (minutes < 10) minutes = "0" + minutes;
+
+    var sDate = day + "/" + month + "/" + year + " " + hours + ":" + minutes;
+    $("#date").html("<p>Printed on " + sDate + "</p>");
+}
+
+function printRoute() {
+
+    if (totalDistance == 0) {
+        $("#dialog_print").dialog({
+            resizable: false,
+            draggable: false,
+            buttons: {
+                "Yes": function() {
+                    $("#dialog_print").dialog("close");
+                    window.print();
+                },             
+                "No": function() {
+                    $("#dialog_print").dialog("close");
+                }
+            }
+        });
+    }
+
+    else {
+        window.print();
     }
 }
