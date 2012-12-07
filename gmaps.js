@@ -45,6 +45,15 @@ function initialize() {
     spanDistance = document.getElementById("distance");
     spanTime = document.getElementById("time");
     directionsPanel = document.getElementById("directions_panel");
+
+    $("#dialog").dialog({ 
+        autoOpen: false,
+        height: 90,
+        modal: true,
+        closeOnEscape: false,
+        resizable: false,
+        draggable: false,
+    });    
 }
 
 function drawRoute(start, end) {
@@ -208,16 +217,15 @@ function showFull() {
     loadMarkers("php/pathfinder.php", true);
 }
 
-function showRoute() {    
-    
+function showRoute() {
+
     clean();
     
     spanDistance.innerHTML = "Calculating...";
     spanTime.innerHTML = "Calculating...";
     
-    $( "#progressbar" ).progressbar({
-        value: 0
-    });
+    // show the loading dialog
+    $("#dialog").dialog("open");
 
     loadMarkers("php/pathfinder.php", false);
 }
@@ -287,10 +295,13 @@ function showSteps(directionResult) {
 
         var percentage = Math.round( (iContainer+1) / markers.length * 100 );
 
-        $("#progressbar")
-            .progressbar("value", percentage)
-            .children('.ui-progressbar-value')
-            .html(percentage + '%');
+        // $("#progressbar")
+        //     .progressbar("value", percentage)
+        //     .children('.ui-progressbar-value')
+        //     .html(percentage + '%');
+
+        $(".progress span strong").text(percentage + "%");
+        $(".progress").progressbar({value: percentage}).children("span").appendTo($(".progress"));
 
         // $("#progressbar").progressbar("value", percentage + "%");
         // $("#progressbar #caption").text(percentage);
@@ -320,5 +331,7 @@ function showSteps(directionResult) {
         spanDistance.innerHTML = convertDistance(totalDistance);
         timeStr = convertTime(totalTime);
         spanTime.innerHTML = timeStr;
+
+        $("#dialog").dialog("close");
     }
 }

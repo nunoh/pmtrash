@@ -7,151 +7,42 @@
     
     <title>Trash Collection Optimization Tool</title>
     
-    <style type="text/css">
-
-        body {
-            /* to make sure the image fits the whole broser window */
-            background: url("res/background.png") no-repeat center center fixed; 
-            -webkit-background-size: cover;
-            -moz-background-size: cover;
-            -o-background-size: cover;
-            background-size: cover;
-
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 12px;
-        }
-
-        p {
-            margin: 10px;
-        }
-
-        h3 {
-            /*margin: 0px;*/
-        }
-
-        #wrapper {
-            width: 1000px;
-            margin: auto;
-            margin-top: 50px;
-        }
-
-        #title {
-
-        }
-
-        #title h1 {
-            font-family: 'Share Tech', sans-serif;
-            font-size: 30px;
-            text-align: center;            
-        }
-
-        #content {
-            
-        }
-
-        #map_wrapper {
-            float: left;
-        }
-
-        #controls_panel {
-            height: 30px;
-            width: 590px;
-        }
-
-        #map_canvas { 
-            width: 590px;
-            height: 450px;
-            box-shadow: 1px 1px 4px 2px rgba(0,0,0,0.5);
-            margin: auto;
-        }
-        
-        #directions_panel {
-            width: 390px;
-            height: 450px;
-            margin: auto;
-            background-color: #C8FEA7;
-            float: left;
-            margin-left: 10px;
-            overflow: auto;
-            box-shadow: 1px 1px 4px 2px rgba(0,0,0,0.5);
-            padding-left: 5px;
-            padding-right: 5px;
-        }
-
-        #results {
-            width: 375px;
-            height: 30px;
-            float: left;
-            margin-left: 10px;
-        }
-
-        #distance, #time {
-            font-weight: bold;
-        }
-
-        #footer {
-            clear: both;
-            padding-top: 30px;
-            text-align: center;
-        }
-
-        #progressbar {
-            width: 200px;
-            height: 20px;
-            margin: 5px;
-            margin: auto;
-            text-align: center;
-        }
-
-        /*#progressbar span { 
-            width: 300px;
-            position: absolute;
-            text-align: center;
-            font-weight: bold;
-        } */
-
-        /*#progressbar .ui-progressbar {
-            position: relative;
-        }*/
-
-        #progressbar .ui-progressbar-value {
-            margin-left: 20px;
-            margin-left: 0px;
-            text-align: center:;
-        }
-
-        /*#progressbar #caption {
-            text-align: center;
-        }*/
-
-        .progress.ui-progressbar {position:relative;height:2em;}
-        .progress span {position:static;margin-top:-2em;text-align:center;display:block;line-height:2em;padding-left:10px;padding-right:10px;}
-        .progress[aria-valuenow="0"] span {margin-top:0px;}​ 
-
-    </style>
+    <!-- external CSS file -->
+    <link rel="stylesheet" type="text/css" href="style.css">
 
     <!-- load heading font from Google Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Share+Tech' rel='stylesheet' type='text/css'>
-    <!-- <link rel="stylesheet" href="print.css" type="text/css" media="print" /> -->
-    
+        
+    <!-- jQuery -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    
+    <!-- jQuery UI -->
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
-    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/base/jquery-ui.css" type="text/css" />
+    
+    <!-- jQUery UI theme -->
+    <!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/humanity/jquery-ui.css" type="text/css" />  -->
+    <!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/base/jquery-ui.css" type="text/css" />     -->
+    <!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/pepper-grinder/jquery-ui.css" type="text/css" /> -->
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/flick/jquery-ui.css" type="text/css" />
+    <!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/black-tie/jquery-ui.css" type="text/css" /> -->
+    <!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/blitzer/jquery-ui.css" type="text/css" /> -->
+    <!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/eggplant/jquery-ui.css" type="text/css" /> -->
+    <!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/cupertino/jquery-ui.css" type="text/css" /> -->
+    <!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/dark-hive/jquery-ui.css" type="text/css" /> -->
+    <!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/dot-luv/jquery-ui.css" type="text/css" /> -->
+    <!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/ui-lightness/jquery-ui.css" type="text/css" /> -->
+    <!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/blitzer/jquery-ui.css" type="text/css" /> -->
+    <!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/excite-bike/jquery-ui.css" type="text/css" /> -->    
+    <!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/hot-sneaks/jquery-ui.css" type="text/css" /> -->
+    <!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/le-frog/jquery-ui.css" type="text/css" /> -->
+    <!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/mint-choc/jquery-ui.css" type="text/css" /> -->
+    <!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/overcast/jquery-ui.css" type="text/css" /> -->
+    
+    <!-- Google Maps API key -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0bHlB5amUrz5EAEPLFoizXlMoB6N00tM&sensor=false&language=en"></script>    
+
+    <!-- external javascript file -->
     <script src="gmaps.js"></script>
-
-    <script type="text/javascript">
-
-    // $(document).ready(function() {
-        $(".progress").each(function() {
-            var progressValue = $(this).data("value");
-            $(this).progressbar({
-                value: progressValue
-            }).children("span").appendTo(this);
-        });
-    // });​
-
-    </script>
 
   </head>
 
@@ -160,7 +51,7 @@
     <div id="wrapper">
 
         <div id="title">
-            <h1 id="title">Trash Collection Optimization Tool</h1>
+            <h1>Trash Collection Optimization Tool</h1>
         </div>
 
         <div id="content">
@@ -186,15 +77,10 @@
                     </select>
 
                     <input type="button" value="Set Full">
-                
-
                     
                 </div>
 
-
-
                 <div id="map_canvas"></div>
-
 
             </div> <!-- map_wrapper -->
 
@@ -203,21 +89,17 @@
                 Calculated Time: <span id="time">N/A</span>
             </div>
 
-            <div id="directions_panel"></div>
+            <div id="directions_panel"><p>No route currently selected. Press the <strong>'Get Route'</strong> button.</p></div>
 
         </div> <!-- content -->
         
         <div id="footer">&copy; 2012 VIA University College</div>
 
-    </div> <!-- wrapper -->    
+    </div> <!-- wrapper -->        
 
-    <!-- <div id="progressbar"><span id="caption"></span></div> -->
-
-    <div class="progress" data-value="80"><span>80%</span></div></td>
-
-    <!-- <div class="progressbar">
-        <span style="position:absolute; margin-left:10px; margin-top:2px">45% or whatever text you want to put in here</span>
-        </div> -->
+    <div id="dialog" title="Calculating Route...">
+        <div class="progress"><span><strong><strong></span></div>
+    </div>
       
   </body>
 </html>

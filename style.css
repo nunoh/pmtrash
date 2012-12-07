@@ -1,0 +1,121 @@
+body {
+    /* to make sure the image fits the whole broser window */
+    background: url("res/background.png") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+}
+
+p {
+    margin: 10px;
+}
+
+h3 {
+    /*margin: 0px;*/
+}
+
+#wrapper {
+    width: 1000px;
+    margin: auto;
+    margin-top: 50px;
+}
+
+#title {
+
+}
+
+#title h1 {
+    font-family: 'Share Tech', sans-serif;
+    font-size: 30px;
+    text-align: center;            
+}
+
+#content {
+    
+}
+
+#map_wrapper {
+    float: left;
+}
+
+#controls_panel {
+    height: 30px;
+    width: 590px;
+}
+
+#map_canvas { 
+    width: 590px;
+    height: 450px;
+    box-shadow: 1px 1px 4px 2px rgba(0,0,0,0.5);
+    margin: auto;
+}
+
+#directions_panel {
+    width: 390px;
+    height: 450px;
+    margin: auto;
+    background-color: #C8FEA7;
+    float: left;
+    margin-left: 10px;
+    overflow: auto;
+    box-shadow: 1px 1px 4px 2px rgba(0,0,0,0.5);
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#results {
+    width: 375px;
+    height: 30px;
+    float: left;
+    margin-left: 10px;
+}
+
+#distance, #time {
+    font-weight: bold;
+}
+
+#footer {
+    clear: both;
+    padding-top: 30px;
+    text-align: center;
+}
+
+.progress {
+    width: 200px;
+    height: 10px;
+    margin: auto;
+    text-align: center;
+}
+
+.progress.ui-progressbar {
+    position: relative;
+    height: 2em;
+}
+
+.progress span {
+    position: static;
+    margin-top: -2em;
+    text-align: center;
+    display: block;
+    line-height: 2em;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.progress[aria-valuenow="0"] span {
+    margin-top: 0px;
+}​
+
+/* to hide the close 'x' icon of the dialog */
+.ui-dialog-titlebar-close {
+    visibility: hidden;
+}
+
+/* these two are really needed, otherwise won't work */
+.ui-dialog .ui-dialog-titlebar-close {
+    visibility: hidden;
+}
