@@ -249,12 +249,10 @@ function clean() {
 }
 
 function centerMap() {
-    console.log("inside center map begin");
     var bounds = new google.maps.LatLngBounds();
     for (i = 0; i < markers.length; i++)
         bounds.extend(markers[i].position);
     map.fitBounds(bounds);
-    console.log("inside center map end");
 }
 
 function showSteps(directionResult) {
@@ -303,7 +301,7 @@ function showSteps(directionResult) {
             directionsPanel.innerHTML += "<p>" + (iStep+1) + ". " + step + "</p>";
 
             // scroll the overflow to the bottom            
-            directionsPanel.scrollTop = directionsPanel.scrollHeight;
+            // directionsPanel.scrollTop = directionsPanel.scrollHeight;
             
             iStep++;
         }

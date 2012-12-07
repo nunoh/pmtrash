@@ -8,8 +8,12 @@
     
     <title>Trash Collection Optimization Tool</title>
     
+    <!-- to load Twitter Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <!-- <script src="js/bootstrap.min.js"></script> -->
+
     <!-- external CSS file -->
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
 
     <!-- load heading font from Google Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Share+Tech' rel='stylesheet' type='text/css'>
@@ -43,7 +47,7 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0bHlB5amUrz5EAEPLFoizXlMoB6N00tM&sensor=false&language=en"></script>    
 
     <!-- external javascript file -->
-    <script src="gmaps.js"></script>
+    <script src="js/gmaps.js"></script>
 
   </head>
 
@@ -58,17 +62,44 @@
         <div id="content">
 
             <div id="map_wrapper">
-                           
-                <div id="controls_panel">
+
+                <div id="controls_panel" class="btn-toolbar">
                     
-                    <input type="button" onclick="showAll();" value="Show All">
-                    <input type="button" onclick="showFull();" value="Show Full">
-                    <input type="button" onclick="showRoute();" value="Get Route">
-                    <input type="button" onclick="clean();" value="Clear Map">
-                    <!-- <input type="button" onclick="window.print();" value="Print Directions">
-                    <input type="button" onclick="window.print();" value="Print Map"> -->
+                <div class="btn-group">
+                    <button class="btn btn-primary btn-small dropdown-toggle" data-toggle="dropdown">Action <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                    </ul>             
+                </div>
+
+                    <button class="btn btn-primary btn-small" onclick="showRoute();"><i class="icon-download-alt icon-white"></i> Get Route</a>
+                    <button class="btn btn-primary btn-small" onclick="window.print();"><i class="icon-print icon-white"></i> Print Route</a>
+                    <button class="btn btn-primary btn-small" onclick="clean();"><i class="icon-remove icon-white"></i> Clear Map</a>
+
+                    <!-- <a class="btn btn-primary btn-small" onclick="showAll();"><i class="icon-map-marker icon-white"></i> Show All</a> -->
+                    <!-- <input type="button" class="btn btn-primary btn-small" onclick="showAll();" value="Show All"> -->
+                    <!-- <input type="button" class="btn btn-primary btn-small" onclick="showFull();" value="Show Full"> -->
+                    <!-- <input type="button" class="btn btn-primary btn-small" onclick="showRoute();" value="Get Route"> -->                    
+                    <!-- <input type="button" class="btn btn-primary btn-small" onclick="clean();" value="Clear Map"> -->
+                    <!-- <input type="button" class="btn btn-primary btn-small" onclick="window.print();" value="Print Directions"> -->                    
+                    <!-- <input type="button" class="btn btn-primary btn-small" onclick="window.print();" value="Print Map"> -->
+
+                    <!-- <div class="btn-group">
+                        <button class="btn btn-primary btn-small dropdown-toggle" data-toggle="dropdown">Action <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                        </ul>
+                    </div> -->
                     
-                    Set percentage full:
+                    <!-- Set percentage full:
                     <select>
                       <option value="0">0%</option>          
                       <option value="20">25%</option>
@@ -77,7 +108,7 @@
                       <option value="100">100%</option>
                     </select>
 
-                    <input type="button" value="Set Full">
+                    <input type="button" value="Set Full"> -->
                     
                 </div>
 

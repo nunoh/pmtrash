@@ -1,6 +1,6 @@
 body {
     /* to make sure the image fits the whole broser window */
-    background: url("background.png") no-repeat center center fixed;
+    background: url("../img/background.png") no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -14,7 +14,8 @@ p {
 }
 
 h3 {
-    /*margin: 0px;*/
+    font-size: 14px;
+    line-height: 40px;
 }
 
 #wrapper {
@@ -40,8 +41,9 @@ h3 {
 }
 
 #controls_panel {
-    height: 30px;
+    height: 40px;
     width: 590px;
+    margin: 0;
 }
 
 #map_canvas {
@@ -66,7 +68,7 @@ h3 {
 
 #results {
     width: 375px;
-    height: 30px;
+    height: 40px;
     float: left;
     margin-left: 10px;
 }
