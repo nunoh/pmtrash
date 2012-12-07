@@ -1,3 +1,7 @@
+html {
+    overflow: hidden;
+}
+
 body {
     /* to make sure the image fits the whole broser window */
     background: url("../img/background.png") no-repeat center center fixed;
@@ -22,11 +26,11 @@ h3 {
 #wrapper {
     width: 1000px;
     margin: auto;
-    margin-top: 50px;
+    margin-top: 40px;
 }
 
 #title {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 #title h1 {
@@ -81,7 +85,7 @@ h3 {
 
 #footer {
     clear: both;
-    padding-top: 20px;
+    padding: 20px;
     text-align: center;
 }
 
