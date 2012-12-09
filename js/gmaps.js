@@ -42,8 +42,8 @@ var DEFAULT_DISTANCE_TEXT = "N/A";
 var DEFAULT_MIN_ZOOM = 11;
 var DEFAULT_MAX_ZOOM = 16;
 
-function initialize() {
-
+$(document).ready(function() {
+   
     // initializing the service for the directions request
     directionsService = new google.maps.DirectionsService();
 
@@ -76,10 +76,14 @@ function initialize() {
     google.maps.event.addListener(map, 'zoom_changed', onZoomChanged);
 
     // if is mobile
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+        $("button").removeClass("btn-small").addClass("btn-mini");
+    }
+
     // change order of divs
     // change class of bootstrap buttons to mini
     
-}
+});
 
 function onZoomChanged() {
     if (zoomChanging) return;
