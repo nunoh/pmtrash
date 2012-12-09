@@ -74,6 +74,10 @@ function initialize() {
     google.maps.event.addListener(map,'center_changed', function() { checkBounds(); });
 
     google.maps.event.addListener(map, 'zoom_changed', onZoomChanged);
+
+    // if is mobile
+    // change order of divs
+    // change class of bootstrap buttons to mini
     
 }
 

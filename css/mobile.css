@@ -1,36 +1,29 @@
-html {
-    /*overflow: hidden;*/
-}
-
 body {
     font-family: 'Lato', Tahoma, Arial, sans-serif;
     font-size: 12px;
 }
 
 p {
-    margin: 10px;
-    padding: 0px;
+    margin: 0 0 3px;
     line-height: 14px;
-    font-size: 11pt;
 }
 
 h3 {
-    font-size: 16px;
-    line-height: 30px;    
+    font-size: 1.17em;
+    line-height: 10px;
 }
 
 #wrapper {
-    width: 90%;
-    margin: auto;
+
 }
 
 #title {
-    margin-bottom: 20px;
+    
 }
 
 #title h1 {
     font-family: 'Share Tech', sans-serif;
-    font-size: 10px;
+    font-size: 20px;
     text-align: center;
 }
 
@@ -39,47 +32,34 @@ h3 {
 }
 
 #map_wrapper {
-    /*float: left;*/
+    
 }
 
 #controls_panel {
-    height: 1px;
-    width: 590px;
-    margin: 0;
-    visibility: hidden;
+    text-align: center;
 }
 
 #map_canvas {
-    width: 600px;
-    height: 450px;
+    width: 80%;
+    height: 200px;
     box-shadow: 1px 1px 4px 2px rgba(0,0,0,0.5);
     margin: auto;
 }
 
 #directions_panel {
-    width: 1000px;
-    /*height: 450px;*/
+    width: 80%;
     margin: auto;
-    /*background-color: #C8FEA7;*/
-    /*float: left;*/
-    /*margin-left: 10px;*/
-    margin: auto;
-    /*overflow: hidden;*/
-    /*box-shadow: 1px 1px 4px 2px rgba(0,0,0,0.5);*/
-    padding-left: 5px;
-    padding-right: 5px;
+    background-color: #C8FEA7;
+    box-shadow: 1px 1px 4px 2px rgba(0,0,0,0.5);
+    /*padding-left: 5px;*/
+    /*padding-right: 5px;*/
+    padding: 5px;
 }
 
 #results {
-    clear: both;
-    width: 375px;
-    height: 50px;
-
-    /*margin-left: 10px;*/
-    font-size: 14px;
-    /*padding-left: 10px;*/
+    margin-top: 20px;
     text-align: center;
-    margin: 20px auto 0px auto;
+    margin-bottom: 20px;
 }
 
 #distance, #time {    
@@ -87,9 +67,9 @@ h3 {
 }
 
 #footer {
-    clear: both;
-    padding: 20px;
+    padding-top: 10px;
     text-align: center;
+    font-size: 8pt;
 }
 
 .progress {
@@ -128,11 +108,34 @@ h3 {
     visibility: hidden;
 }
 
-.dropdown-menu {
+/*.dropdown-menu {
     min-width: 100px;
-}
+}*/
 
 #date {
+    display: none;
+}
+
+.ui-dialog .ui-dialog-buttonpane button {
+    float: none;
+}
+
+.ui-dialog .ui-dialog-buttonpane {
     text-align: center;
-    font-weight: bold;
+}
+
+#dialog_print {
+    visibility: hidden;
+}
+
+#dialog {
+    width: 200px;
+}
+
+#btn_print {
+    display: none;
+}
+
+#btn_clear, #btn_show, #btn_route {
+    width: 80px;
 }
