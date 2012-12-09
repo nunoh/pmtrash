@@ -422,6 +422,7 @@ function showDate() {
 
 function printRoute() {
 
+    var print;
     if (totalDistance == 0) {
         $("#dialog_print").dialog({
             resizable: false,
@@ -429,10 +430,11 @@ function printRoute() {
             buttons: {
                 "Yes": function() {
                     $("#dialog_print").dialog("close");
-                    window.print();
+                    print = true;
                 },             
                 "No": function() {
                     $("#dialog_print").dialog("close");
+                    print = false;
                 }
             }
         });
@@ -441,4 +443,7 @@ function printRoute() {
     else {
         window.print();
     }
+
+    if (print)
+        window.print();
 }
