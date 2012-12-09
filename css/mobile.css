@@ -133,10 +133,10 @@ h3 {
     width: 200px;
 }
 
-#btn_print {
+#btn_print, #btn_show {
     display: none;
 }
 
-#btn_clear, #btn_show, #btn_route {
+#btn_clear, #btn_route {
     width: 80px;
 }

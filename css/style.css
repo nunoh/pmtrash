@@ -1,5 +1,5 @@
 html {
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 
 body {
@@ -32,7 +32,7 @@ h3 {
 }
 
 #title {
-    margin-bottom: 25px;
+    /*margin-bottom: 25px;*/
 }
 
 #title h1 {

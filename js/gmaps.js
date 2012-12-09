@@ -35,7 +35,7 @@ var ICON_NUMBER = "https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld
 var ICON_HOME = "https://chart.googleapis.com/chart?chst=d_map_pin_icon&chld=home|ADDE63";
 var ICON_LAST = "https://chart.googleapis.com/chart?chst=d_map_pin_icon&chld=flag|ADDE63";    
 
-var DEFAULT_DIRECTIONS_TEXT = "<p>No route currently selected. Press the <strong>'Get Route'</strong> button.</p>";
+var DEFAULT_DIRECTIONS_TEXT = "<p>No route currently selected. Press the <strong>Get Route</strong> button.</p>";
 var DEFAULT_TIME_TEXT = "N/A";
 var DEFAULT_DISTANCE_TEXT = "N/A";
 
@@ -71,18 +71,20 @@ $(document).ready(function() {
         allowedBounds = map.getBounds();
     });
 
-    google.maps.event.addListener(map,'center_changed', function() { checkBounds(); });
+    google.maps.event.addListener(map,'center_changed', function() { 
+        checkBounds(); 
+    });
 
     google.maps.event.addListener(map, 'zoom_changed', onZoomChanged);
 
     // if is mobile
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
-        $("button").removeClass("btn-small").addClass("btn-mini");
-    }
+        $("button").removeClass("btn-small").addClass("btn-mini");                    
+        $("#btn_grp_route").insertBefore($("#btn_grp_clear"));        
+    }   
 
-    // change order of divs
-    // change class of bootstrap buttons to mini
-    
+    $("#dialog_print").dialog({autoOpen:false});
+
 });
 
 function onZoomChanged() {

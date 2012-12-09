@@ -52,7 +52,7 @@
     <link rel="stylesheet" type="text/css" href="css/mobile.css" media="only screen and (min-device-width: 320px) and (max-device-width: 480px)" />
 
     <!-- css file for desktops -->
-    <link rel="stylesheet" type="text/css" href="css/style.css" media="only screen and (min-width: 1000px)">
+    <link rel="stylesheet" type="text/css" href="css/style.css" media="only screen and (min-width: 800px)">
 
   </head>
 
@@ -87,8 +87,8 @@
                         
                     </div>
 
-                    <div class="btn-group"><button id="btn_clear" class="btn btn-primary btn-small" onclick="clean()"><i class="icon-remove icon-white"></i> Clear Map</button></div>
-                    <div class="btn-group"><button id="btn_route" class="btn btn-primary btn-small" onclick="showRoute()"><i class="icon-download-alt icon-white"></i> Get Route</button></div>
+                    <div id="btn_grp_clear" class="btn-group"><button id="btn_clear" class="btn btn-primary btn-small" onclick="clean()"><i class="icon-remove icon-white"></i> Clear Map</button></div>
+                    <div id="btn_grp_route" class="btn-group"><button id="btn_route" class="btn btn-primary btn-small" onclick="showRoute()"><i class="icon-download-alt icon-white"></i> Get Route</button></div>
                     <div class="btn-group"><button id="btn_print" class="btn btn-primary btn-small" onclick="printRoute()"><i class="icon-print icon-white"></i> Print Route</button></div>
                         
                     <!-- Set percentage full:
@@ -101,9 +101,6 @@
                     </select>
 
                     <input type="button" value="Set Full"> -->
-
-                    
-
                     
                 </div>
 
@@ -120,9 +117,9 @@
 
         </div> <!-- content -->
         
-        <div id="footer">&copy; 2012 VIA University College</div>
-
     </div> <!-- wrapper -->        
+
+    <div id="footer">&copy; 2012 VIA University College</div>
 
     <div id="dialog" title="Calculating Route...">
         <div class="progress"><span><strong></strong></span></div>
