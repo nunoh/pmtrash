@@ -1,0 +1,138 @@
+html {
+    /*overflow: hidden;*/
+}
+
+body {
+    font-family: 'Lato', Tahoma, Arial, sans-serif;
+    font-size: 12px;
+}
+
+p {
+    margin: 10px;
+    padding: 0px;
+    line-height: 14px;
+    font-size: 11pt;
+}
+
+h3 {
+    font-size: 16px;
+    line-height: 30px;    
+}
+
+#wrapper {
+    width: 90%;
+    margin: auto;
+}
+
+#title {
+    margin-bottom: 20px;
+}
+
+#title h1 {
+    font-family: 'Share Tech', sans-serif;
+    font-size: 10px;
+    text-align: center;
+}
+
+#content {
+
+}
+
+#map_wrapper {
+    /*float: left;*/
+}
+
+#controls_panel {
+    height: 1px;
+    width: 590px;
+    margin: 0;
+    visibility: hidden;
+}
+
+#map_canvas {
+    width: 600px;
+    height: 450px;
+    box-shadow: 1px 1px 4px 2px rgba(0,0,0,0.5);
+    margin: auto;
+}
+
+#directions_panel {
+    width: 1000px;
+    /*height: 450px;*/
+    margin: auto;
+    /*background-color: #C8FEA7;*/
+    /*float: left;*/
+    /*margin-left: 10px;*/
+    margin: auto;
+    /*overflow: hidden;*/
+    /*box-shadow: 1px 1px 4px 2px rgba(0,0,0,0.5);*/
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#results {
+    clear: both;
+    width: 375px;
+    height: 50px;
+
+    /*margin-left: 10px;*/
+    font-size: 14px;
+    /*padding-left: 10px;*/
+    text-align: center;
+    margin: 20px auto 0px auto;
+}
+
+#distance, #time {    
+    font-weight: bold;
+}
+
+#footer {
+    clear: both;
+    padding: 20px;
+    text-align: center;
+}
+
+.progress {
+    width: 200px;
+    height: 10px;
+    margin: auto;
+    text-align: center;
+}
+
+.progress.ui-progressbar {
+    position: relative;
+    height: 2em;
+}
+
+.progress span {
+    position: static;
+    margin-top: -2em;
+    text-align: center;
+    display: block;
+    line-height: 2em;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.progress[aria-valuenow="0"] span {
+    margin-top: 0px;
+}​
+
+/* to hide the close 'x' icon of the dialog */
+.ui-dialog-titlebar-close {
+    visibility: hidden;
+}
+
+/* these two are really needed, otherwise won't work */
+.ui-dialog .ui-dialog-titlebar-close {
+    visibility: hidden;
+}
+
+.dropdown-menu {
+    min-width: 100px;
+}
+
+#date {
+    text-align: center;
+    font-weight: bold;
+}
