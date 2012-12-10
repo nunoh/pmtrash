@@ -43,6 +43,10 @@ var DEFAULT_MIN_ZOOM = 11;
 var DEFAULT_MAX_ZOOM = 16;
 
 $(document).ready(function() {
+    initialize();
+});
+
+function initialize() {
    
     // initializing the service for the directions request
     directionsService = new google.maps.DirectionsService();
@@ -84,8 +88,7 @@ $(document).ready(function() {
     }   
 
     $("#dialog_print").dialog({autoOpen:false});
-
-});
+}
 
 function onZoomChanged() {
     if (zoomChanging) return;
