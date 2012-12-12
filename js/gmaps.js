@@ -215,7 +215,7 @@ function loadMarkers(url, show) {
             var marker = new google.maps.Marker({
                 position: new google.maps.LatLng(lat, lng),
                 title: id,
-                html: "<p>" + "Info for container " + id + "</p>"
+                html: "<p>" + "Container " + id + "</p>"
             });
 
             // add marker to markers array
