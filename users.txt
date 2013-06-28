@@ -1,0 +1,3 @@
+nuno.hespanhol@gmail.com = Nuno Hespanhol <nuno.hespanhol@gmail.com>
+(no author)              = Nuno Hespanhol <nuno.hespanhol@gmail.com>
+cebedeo@gmail.com        = cebedeo <cebedeo@gmail.com>
