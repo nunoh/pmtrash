@@ -1,8 +1,8 @@
-## Trash Collection Optimization Tool
+## A Trash Collection Optimization Tool
 
-### What it is?
+### What is it?
 
-A tool for optimizing trash collection routes within a small city with the aim at reducing its inherent costs.
+A tool for optimizing trash collection routes within a small city with the aim of reducing its inherent costs.
 
 ### Context
 
